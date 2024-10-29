@@ -34,7 +34,6 @@ int main(int ac, char **av) {
         return 1;
     }
 
-    void *tex_ptr;
     t_mlx mlx;
     mlx.ply = calloc(1, sizeof(t_player));
     mlx.ray = calloc(1, sizeof(t_ray));
@@ -56,13 +55,10 @@ int main(int ac, char **av) {
     mlx.img_ptr = mlx_new_image(mlx.mlx_p, S_W, S_H); 
     mlx.dt->data = mlx_get_data_addr(mlx.img_ptr, &mlx.dt->bits_per_pixel, &mlx.dt->size_line, &mlx.dt->endian);
     int i, j;
-    tex_ptr = mlx_xpm_file_to_image(mlx.mlx_p, "./textures/gumball.xpm", &i, &j);
-    if (!tex_ptr) {
-        fprintf(stderr, "Error loading texture\n");
-        return 1;
-    }
     get_textures(mlx.dt);
     get_floor_ceiling(mlx.dt);
+    mlx.textures->north->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_no, &i, &j);
+
     printf("%s\n",  mlx.dt->map_texts->text_no);
     printf("%s\n",  mlx.dt->map_texts->text_so);
     printf("%s\n",  mlx.dt->map_texts->text_we);
@@ -112,7 +108,7 @@ int main(int ac, char **av) {
     // mlx.ray->dirY = -1.0;
     // mlx.ray->planeX = -0.66;
     // mlx.ray->planeY = 0.0;
-    mlx.textures->north->ptr = tex_ptr;
+
 	mlx.ply->angle = 0;
     // Main loop
     int done = 0;
@@ -125,7 +121,6 @@ int main(int ac, char **av) {
         mlx_loop(mlx.mlx_p);
     }
     mlx_destroy_image(mlx.mlx_p, mlx.img_ptr);
-    mlx_destroy_image(mlx.mlx_p, tex_ptr);
     mlx_destroy_window(mlx.mlx_p, mlx.win);
     mlx_destroy_display(mlx.mlx_p);
     free(mlx.mlx_p);
