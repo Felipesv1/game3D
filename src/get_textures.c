@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 11:02:17 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/29 12:04:34 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 14:24:18 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void get_floor_ceiling(t_data *data)
     int i;
     int j;
 
-    i = 5;
+    i = 4;
     while (data->backup[i])
     {
         j = 0;
@@ -52,10 +52,10 @@ void get_floor_ceiling(t_data *data)
         {
             if (i == 7)
                 break;          
-            if (data->backup[i][j] == 'F' && data->backup[i][j + 1] == ' ')
-                data->map_texts->floor = ft_strdup(data->backup[i] + 3);
-            else if (data->backup[i][j] == 'C' && data->backup[i][j + 1] == ' ')
-                data->map_texts->ceiling = ft_strdup(data->backup[i] + 3);
+            if (data->backup[i][j] == 'F')
+                data->map_texts->floor = ft_strdup(data->backup[i] + 2);
+            else if (data->backup[i][j] == 'C')
+                data->map_texts->ceiling = ft_strdup(data->backup[i] + 2);
             j++;
         }
         i++;

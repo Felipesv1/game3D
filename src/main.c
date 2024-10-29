@@ -62,11 +62,13 @@ int main(int ac, char **av) {
         return 1;
     }
     get_textures(mlx.dt);
+    get_floor_ceiling(mlx.dt);
     printf("%s\n",  mlx.dt->map_texts->text_no);
     printf("%s\n",  mlx.dt->map_texts->text_so);
     printf("%s\n",  mlx.dt->map_texts->text_we);
     printf("%s\n",  mlx.dt->map_texts->text_ea);
     printf("%s\n",  mlx.dt->map_texts->floor);
+    printf("%s\n",  mlx.dt->map_texts->ceiling);
 
 
 
