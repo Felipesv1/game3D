@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:08:39 by fmontes           #+#    #+#             */
-/*   Updated: 2024/10/29 09:59:22 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:21:46 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ void draw_buffer(t_mlx *mlx, int x)
 {
     int y;
     int color;
-
     for (y = 0; y < S_H; y++)
     {
 
         if (y < mlx->dt->drawStart)
             color = 0x87CEEB; // Sky color
-        else if (y >= mlx->dt->drawStart && y <= mlx->dt->drawEnd)
+        else if ( y < mlx->dt->drawEnd)
         {
+           
             int d = y * 256 - S_H * 128 + mlx->dt->lineHeight * 128;
             int texY = ((d * TEX_HEIGHT) / mlx->dt->lineHeight) / 256;
             color = get_texture_color(mlx->textures->north->ptr, mlx->dt->texX, texY);

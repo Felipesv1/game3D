@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:38:17 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/22 16:49:00 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 12:18:06 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,8 @@ void size_map(t_data *dt) {
 void update_map(t_mlx *mlx)
 {
 
-
-    mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->img_ptr, 0, 0);
     raycasting(mlx);
+    mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->img_ptr, 0, 0);
     // draw_buffer(mlx->mlx_p, mlx->win, mlx->img_ptr, mlx->dt->buffer);
 }
 // int	size_map(t_data *dt)

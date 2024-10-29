@@ -45,6 +45,7 @@ int main(int ac, char **av) {
     mlx.textures->south = calloc(1, sizeof(t_texture));
     mlx.textures->east = calloc(1, sizeof(t_texture));
     mlx.dt = calloc(1, sizeof(t_data));
+    mlx.dt->map_texts = calloc(1, sizeof(t_map_texture));
     mlx.dt->backup = read_map(av[1]);
     mlx.dt->map2d = get_map( mlx.dt->backup);
     size_map(mlx.dt);
@@ -60,6 +61,14 @@ int main(int ac, char **av) {
         fprintf(stderr, "Error loading texture\n");
         return 1;
     }
+    get_textures(mlx.dt);
+    printf("%s\n",  mlx.dt->map_texts->text_no);
+    printf("%s\n",  mlx.dt->map_texts->text_so);
+    printf("%s\n",  mlx.dt->map_texts->text_we);
+    printf("%s\n",  mlx.dt->map_texts->text_ea);
+    printf("%s\n",  mlx.dt->map_texts->floor);
+
+
 
     // Set up the initial position, direction, and plane
  

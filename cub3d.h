@@ -6,15 +6,15 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/29 09:58:03 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 13:20:37 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
 #include "./libft/libft.h"
-#include "../minilibx/mlx.h"
-#include "../minilibx/mlx_int.h"
+#include "../../minilibx/mlx.h"
+#include "../../minilibx/mlx_int.h"
 #include <X11/X.h>
 #include <math.h>
 #include <X11/keysym.h>
@@ -80,6 +80,15 @@ typedef struct s_textures
     
 } t_textures;
 
+typedef struct s_map_texture{
+    char *text_no;
+    char *text_so;
+    char *text_we;
+    char *text_ea;
+    char *floor;
+    char *ceiling;
+} t_map_texture;
+
 typedef struct s_data // the data structure
 {
     char **backup;
@@ -108,7 +117,9 @@ typedef struct s_data // the data structure
     char **textu;
     int buffer[S_W * S_H];
     char **c_flor; // map height
+       t_map_texture *map_texts;
 } t_data;
+
 
 typedef struct s_raycast {
     double rayDirX;
@@ -133,6 +144,7 @@ typedef struct s_mlx {
     t_player *ply;
     t_ray *ray;
     t_textures *textures;
+ 
     t_data *dt;
     t_raycast *rc; // Raycasting data
 } t_mlx;
@@ -190,5 +202,10 @@ double calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc);
 void calculate_line_height(t_mlx *mlx, double perpWallDist);
 void render_column(int x, int drawStart, int drawEnd, int texX, void *tex_ptr, int *buffer);
 void raycasting(t_mlx *mlx);
+
+//TEXTURES
+
+void get_textures( t_data *data);
+void get_floor_ceiling(t_data *data);
 
 #endif
