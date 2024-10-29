@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// t_data *init_argumet(char *av)	// init the data structure
+// void *init_argumet(t_mlx *mlx, char *av)	// init the data structure
 // {
 // 	t_data	*dt;
 // 	dt = malloc(sizeof(t_data));
@@ -38,8 +38,12 @@ int main(int ac, char **av) {
     t_mlx mlx;
     mlx.ply = calloc(1, sizeof(t_player));
     mlx.ray = calloc(1, sizeof(t_ray));
-    mlx.textures = calloc(1, sizeof(t_textures));
     mlx.rc = calloc(1, sizeof(t_raycast));
+    mlx.textures = calloc(1, sizeof(t_textures));
+    mlx.textures->north = calloc(1, sizeof(t_texture));
+    mlx.textures->east = calloc(1, sizeof(t_texture));
+    mlx.textures->south = calloc(1, sizeof(t_texture));
+    mlx.textures->east = calloc(1, sizeof(t_texture));
     mlx.dt = calloc(1, sizeof(t_data));
     mlx.dt->backup = read_map(av[1]);
     mlx.dt->map2d = get_map( mlx.dt->backup);
@@ -77,11 +81,27 @@ int main(int ac, char **av) {
     // }
     mlx.ply->plyr_x = 10;
     mlx.ply->plyr_y = 5;
+    // north
     mlx.ray->dirX = -1.0;
-    mlx.ray->dirY = -1.0;
+    mlx.ray->dirY = 0.0;
     mlx.ray->planeX = 0.0;
     mlx.ray->planeY = 0.66;
-    mlx.textures->north = tex_ptr;
+    //    // south
+    // mlx.ray->dirX = 1.0;
+    // mlx.ray->dirY = 0.0;
+    // mlx.ray->planeX = 0.0;
+    // mlx.ray->planeY = -0.66;
+        // east
+    // mlx.ray->dirX = 0.0;
+    // mlx.ray->dirY = 1.0;
+    // mlx.ray->planeX = 0.66;
+    // mlx.ray->planeY = 0.0;
+          // west
+    // mlx.ray->dirX = 0.0;
+    // mlx.ray->dirY = -1.0;
+    // mlx.ray->planeX = -0.66;
+    // mlx.ray->planeY = 0.0;
+    mlx.textures->north->ptr = tex_ptr;
 	mlx.ply->angle = 0;
     // Main loop
     int done = 0;
@@ -101,6 +121,7 @@ int main(int ac, char **av) {
     free(mlx.ply);
     free(mlx.ray);
     free(mlx.textures);
+
     free(mlx.rc);
 
     return 0;

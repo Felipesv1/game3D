@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:08:39 by fmontes           #+#    #+#             */
-/*   Updated: 2024/10/22 16:50:01 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:59:22 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void draw_buffer(t_mlx *mlx, int x)
         {
             int d = y * 256 - S_H * 128 + mlx->dt->lineHeight * 128;
             int texY = ((d * TEX_HEIGHT) / mlx->dt->lineHeight) / 256;
-            color = get_texture_color(mlx->textures->north, mlx->dt->texX, texY);
+            color = get_texture_color(mlx->textures->north->ptr, mlx->dt->texX, texY);
         }
         else
             color = 0x8B4513; // Ground color

@@ -6,15 +6,15 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/22 16:43:17 by felperei         ###   ########.fr       */
+/*   Updated: 2024/10/29 09:58:03 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 #define CUB3D_H
 #include "./libft/libft.h"
-#include "../../minilibx/mlx.h"
-#include "../../minilibx/mlx_int.h"
+#include "../minilibx/mlx.h"
+#include "../minilibx/mlx_int.h"
 #include <X11/X.h>
 #include <math.h>
 #include <X11/keysym.h>
@@ -43,6 +43,10 @@
 #define TEX_HEIGHT 64
 #define MAP_WIDTH 24
 #define MAP_HEIGHT 24
+#define NORTH 0
+#define WEST 1
+#define  EAST 2
+#define SOUTH 3
 typedef struct s_player {
     double plyr_x;
     double plyr_y;
@@ -57,23 +61,24 @@ typedef struct s_ray {
     double planeY;
 } t_ray;
 
+
+
+typedef struct s_texture
+{
+    void *ptr;
+    int w;
+    int h;
+    
+} t_texture;
+
 typedef struct s_textures
 {
-    void *north;
-    int north_w;
-    int north_h;
-    void *south;
-    int south_w;
-    int south_h;
-    void *east;
-    int east_w;
-    int east_h;
-    void *west;
-    int west_w;
-    int west_h;
+    t_texture *north;
+    t_texture *west;
+    t_texture *east;
+    t_texture *south;
     
 } t_textures;
-
 
 typedef struct s_data // the data structure
 {
