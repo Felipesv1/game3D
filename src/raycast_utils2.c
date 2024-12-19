@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:09:33 by fmontes           #+#    #+#             */
-/*   Updated: 2024/10/29 13:21:40 by felperei         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:01:50 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void raycasting(t_mlx *mlx) {
         // Determine texture X coordinate
         mlx->dt->texX = (int)((mlx->rc->side == 0 ? mlx->rc->posY + mlx->rc->perpWallDist  * mlx->rc->rayDirY : mlx->rc->posX + mlx->rc->perpWallDist  * mlx->rc->rayDirX) * TEX_WIDTH) % TEX_WIDTH;
 
+        
 //    double wallX; // where exactly the wall was hit
 //         if (mlx->rc->side == 0)
 //             wallX = mlx->rc->posY + mlx->rc->perpWallDist * mlx->rc->rayDirY;

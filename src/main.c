@@ -42,7 +42,7 @@ int main(int ac, char **av) {
     mlx.textures->north = calloc(1, sizeof(t_texture));
     mlx.textures->east = calloc(1, sizeof(t_texture));
     mlx.textures->south = calloc(1, sizeof(t_texture));
-    mlx.textures->east = calloc(1, sizeof(t_texture));
+    mlx.textures->west = calloc(1, sizeof(t_texture));
     mlx.dt = calloc(1, sizeof(t_data));
     mlx.dt->map_texts = calloc(1, sizeof(t_map_texture));
     mlx.dt->backup = read_map(av[1]);
@@ -58,11 +58,15 @@ int main(int ac, char **av) {
     get_textures(mlx.dt);
     get_floor_ceiling(mlx.dt);
     mlx.textures->north->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_no, &i, &j);
+    mlx.textures->south->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_so, &i, &j);
+    mlx.textures->west->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_we, &i, &j);
+    mlx.textures->east->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_ea, &i, &j);
 
-    printf("%s\n",  mlx.dt->map_texts->text_no);
-    printf("%s\n",  mlx.dt->map_texts->text_so);
-    printf("%s\n",  mlx.dt->map_texts->text_we);
-    printf("%s\n",  mlx.dt->map_texts->text_ea);
+
+    printf("|%s|\n",  mlx.dt->map_texts->text_no);
+    printf("|%s|\n",  mlx.dt->map_texts->text_so);
+    printf("|%s|\n",  mlx.dt->map_texts->text_we);
+    printf("|%s|\n",  mlx.dt->map_texts->text_ea);
     printf("%s\n",  mlx.dt->map_texts->floor);
     printf("%s\n",  mlx.dt->map_texts->ceiling);
 

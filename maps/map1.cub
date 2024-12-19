@@ -1,7 +1,7 @@
-NO ./textures/gumball.xpm
-SO textures/Wheat_Field.png
-WE textures/the_starry_night.png
-EA textures/girl_with_a_pearl_earring.png
+NO textures/gumball.xpm
+SO textures/darwin.xpm
+WE textures/ricardo.xpm
+EA textures/mae.xpm
 
 C 0,0,60
 F 60,179,110

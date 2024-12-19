@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/29 14:55:16 by felperei         ###   ########.fr       */
+/*   Updated: 2024/12/19 10:33:31 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ void game_events(int keycode, t_mlx *game);
 //RAYCASTING
 
 void draw_buffer(t_mlx *mlx, int x);
-int get_texture_color(void *img_ptr, int x, int y);
+int get_texture_color(t_mlx *mlx, int x, int y);
 void calculate_step_and_side_dist(t_raycast *rc, int mapX, int mapY);
 void perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx);
 double calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc);
