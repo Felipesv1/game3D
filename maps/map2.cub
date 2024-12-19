@@ -1,14 +1,15 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO textures/gumball.xpm
+SO textures/darwin.xpm
+WE textures/ricardo.xpm
+EA textures/mae.xpm
+
 F 220,100,0
 C 225,30,0
 
         1111111111111111111111111
         1000000000000000000000001
         1011000000000000000000001
-        1001000000000000000000001
+        100100N000000000000000001
 111111111011000000000000000000001
 100000000011000001110111111111111
 11110000000000011100000010001

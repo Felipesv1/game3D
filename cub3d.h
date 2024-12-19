@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2024/12/19 10:33:31 by felperei         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:21:30 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 typedef struct s_player {
     double plyr_x;
     double plyr_y;
+    int n_player;
     double fov_rd;
     double angle;
 } t_player;
@@ -87,6 +88,8 @@ typedef struct s_map_texture{
     char *text_ea;
     char *floor;
     char *ceiling;
+    int f;
+    int c;
 } t_map_texture;
 
 typedef struct s_data // the data structure
@@ -149,31 +152,7 @@ typedef struct s_mlx {
     t_raycast *rc; // Raycasting data
 } t_mlx;
 
-// void update_map(t_mlx *mlx);
-// int mlx_key(int keycode, void *ml);
-// void ft_reles(int keycode, t_mlx *mlx);
-// int ft_exit(t_mlx *mlx); // exit the game
-// void cast_rays(t_mlx *mlx);
-// void render_wall(t_mlx *mlx, int ray);
-// void hook(t_mlx *mlx, double move_x, double move_y);
-// float nor_angle(float angle);
-// void load_textures(t_mlx *mlx);
-// void	move_left(t_mlx *mlx);
-// void move_player_backward(t_mlx *mlx);
-// void game_events(int keycode, t_mlx *game);
-// char **read_map(char *path);
-// int keypress(int keycode, t_mlx *game);
-// void	size_map(t_data *dt);
-// void init_the_player(t_mlx *mlx);
-// void draw_buffer(void *mlx_ptr, void *win_ptr, void *img_ptr, int *buffer);
-// int get_texture_color(void *img_ptr, int x, int y);
-// void calculate_step_and_side_dist(t_raycast *rc, double posX, double posY, int mapX, int mapY);
-// void perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx);
-// double calculate_perp_wall_dist(int side, double posX, double posY, int mapX, int mapY, t_raycast *rc);
-// void calculate_line_height(int *lineHeight, int *drawStart, int *drawEnd, double perpWallDist);
-// void render_column(int x, int drawStart, int drawEnd, int texX, void *tex_ptr, int *buffer);
-// void raycasting(t_mlx *mlx, int *buffer);
-// void start_the_game(t_data *dt);
+
 
 // MAP
 int ft_exit(t_mlx *mlx);
@@ -191,6 +170,7 @@ void move_player_backward(t_mlx *mlx);
 void rotate_player(t_mlx *mlx, int i);
 int keypress(int keycode, t_mlx *game);
 void game_events(int keycode, t_mlx *game);
+void find_player(t_mlx *mlx);
 
 //RAYCASTING
 
@@ -207,5 +187,5 @@ void raycasting(t_mlx *mlx);
 
 void get_textures( t_data *data);
 void get_floor_ceiling(t_data *data);
-
+int rgb_to_hex(char *texture);
 #endif

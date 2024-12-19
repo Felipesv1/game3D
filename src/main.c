@@ -57,6 +57,8 @@ int main(int ac, char **av) {
     int i, j;
     get_textures(mlx.dt);
     get_floor_ceiling(mlx.dt);
+    mlx.dt->map_texts->f = rgb_to_hex(mlx.dt->map_texts->floor);
+    mlx.dt->map_texts->c = rgb_to_hex(mlx.dt->map_texts->ceiling);
     mlx.textures->north->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_no, &i, &j);
     mlx.textures->south->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_so, &i, &j);
     mlx.textures->west->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_we, &i, &j);
@@ -90,13 +92,13 @@ int main(int ac, char **av) {
     //     printf("\n");
     //     a++;
     // }
-    mlx.ply->plyr_x = 10;
-    mlx.ply->plyr_y = 5;
-    // north
-    mlx.ray->dirX = -1.0;
-    mlx.ray->dirY = 0.0;
-    mlx.ray->planeX = 0.0;
-    mlx.ray->planeY = 0.66;
+    // mlx.ply->plyr_x = 10;
+    // mlx.ply->plyr_y = 5;
+    // // north
+    // mlx.ray->dirX = -1.0;
+    // mlx.ray->dirY = 0.0;
+    // mlx.ray->planeX = 0.0;
+    // mlx.ray->planeY = 0.66;
     //    // south
     // mlx.ray->dirX = 1.0;
     // mlx.ray->dirY = 0.0;
@@ -113,7 +115,7 @@ int main(int ac, char **av) {
     // mlx.ray->planeX = -0.66;
     // mlx.ray->planeY = 0.0;
 
-	mlx.ply->angle = 0;
+    find_player(&mlx);
     // Main loop
     int done = 0;
     while (!done) {

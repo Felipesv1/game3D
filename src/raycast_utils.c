@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:08:39 by fmontes           #+#    #+#             */
-/*   Updated: 2024/12/19 11:13:47 by felperei         ###   ########.fr       */
+/*   Updated: 2024/12/19 14:03:05 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@ void draw_buffer(t_mlx *mlx, int x)
     {
 
         if (y < mlx->dt->drawStart)
-            color = 0x87CEEB; // Sky color
-        else if ( y < mlx->dt->drawEnd)
+            color = mlx->dt->map_texts->f; // Sky color
+        else if (y < mlx->dt->drawEnd)
         {
-           
+
             int d = y * 256 - S_H * 128 + mlx->dt->lineHeight * 128;
             int texY = ((d * TEX_HEIGHT) / mlx->dt->lineHeight) / 256;
             color = get_texture_color(mlx, mlx->dt->texX, texY);
         }
         else
-            color = 0x8B4513; // Ground color
+            color = mlx->dt->map_texts->c; // Ground color
         mlx->dt->data[(y * S_W + x) * 4] = color & 0xFF;
         mlx->dt->data[(y * S_W + x) * 4 + 1] = (color >> 8) & 0xFF;
         mlx->dt->data[(y * S_W + x) * 4 + 2] = (color >> 16) & 0xFF;
@@ -42,13 +42,13 @@ int get_texture_color(t_mlx *mlx, int x, int y)
     char *data;
     int bpp, size_line, endian;
     void *img_ptr;
-    if(mlx->rc->side && mlx->rc->rayDirY > 0)
+    if (mlx->rc->side && mlx->rc->rayDirY > 0)
         img_ptr = mlx->textures->east->ptr;
     else if (mlx->rc->side && mlx->rc->rayDirY < 0)
         img_ptr = mlx->textures->west->ptr;
     else if (!mlx->rc->side && mlx->rc->rayDirX > 0)
         img_ptr = mlx->textures->south->ptr;
-    else 
+    else
         img_ptr = mlx->textures->north->ptr;
     data = mlx_get_data_addr(img_ptr, &bpp, &size_line, &endian);
     return *(int *)(data + (y * size_line + x * (bpp / 8)));
