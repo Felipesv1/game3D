@@ -1,85 +1,91 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
+/*   Updated: 2025/01/14 15:50:13 by felperei         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
-#include <math.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
+void	loop_main(t_mlx mlx)
+{
+	int	done;
 
-
-
-
-void print_int_map(int **map, int rows, int cols) {
-    for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < cols; j++) {
-            printf("%d ", map[i][j]);
-        }
-        printf("\n");
-    }
+	done = 0;
+	while (!done)
+	{
+		mlx_hook(mlx.win, 17, 0L, (int (*)())exit, NULL);
+		mlx_hook(mlx.win, KeyPress, KeyPressMask, keypress, &mlx);
+		raycasting(&mlx);
+		mlx_put_image_to_window(mlx.mlx_p, mlx.win, mlx.img_ptr, 0, 0);
+		mlx_loop(mlx.mlx_p);
+	}
+}
+// Função de Flood Fill
+static int	is_valid(int x, int y, char **map)
+{
+	if (x >= 0 && map[x] && y >= 0 && map[x][y] && (map[x][y] == '0'
+			|| map[x][y] == ' ' || map[x][y] == 'N' || map[x][y] == 'S'
+			|| map[x][y] == 'W' || map[x][y] == 'E'))
+		return (1);
+	return (0);
 }
 
-int main(int ac, char **av) {
-	  if (ac < 2) {
-        fprintf(stderr, "Usage: %s <map_file>\n", av[0]);
-        return 1;
-    }
+int	flood_fill(int x, int y, char **map)
+{
+	if (!is_valid(x, y, map) || map[x][y] == 'F')
+		return (0);
+	map[x][y] = 'F';
+	if (flood_fill(x + 1, y, map))
+		return (1);
+	if (flood_fill(x - 1, y, map))
+		return (1);
+	if (flood_fill(x, y + 1, map))
+		return (1);
+	if (flood_fill(x, y - 1, map))
+		return (1);
+	return (0);
+}
 
-    t_mlx mlx;
-    mlx.ply = calloc(1, sizeof(t_player));
-    mlx.ray = calloc(1, sizeof(t_ray));
-    mlx.rc = calloc(1, sizeof(t_raycast));
-    mlx.textures = calloc(1, sizeof(t_textures));
-    mlx.textures->north = calloc(1, sizeof(t_texture));
-    mlx.textures->east = calloc(1, sizeof(t_texture));
-    mlx.textures->south = calloc(1, sizeof(t_texture));
-    mlx.textures->west = calloc(1, sizeof(t_texture));
-    mlx.dt = calloc(1, sizeof(t_data));
-    mlx.dt->map_texts = calloc(1, sizeof(t_map_texture));
-    mlx.dt->backup = read_map(av[1]);
-    mlx.dt->map2d = get_map( mlx.dt->backup);
-    size_map(mlx.dt);
-    // mlx.dt->map = copy_char_to_int(mlx.dt->map2d, 20, 20);
-    mlx.mlx_p = mlx_init();
-    mlx.win = mlx_new_window(mlx.mlx_p, S_W, S_H, "Cub3d");
-    mlx.img_ptr = mlx_new_image(mlx.mlx_p, S_W, S_H); 
-    mlx.dt->data = mlx_get_data_addr(mlx.img_ptr, &mlx.dt->bits_per_pixel, &mlx.dt->size_line, &mlx.dt->endian);
-    int i, j;
-    get_textures(mlx.dt);
-    get_floor_ceiling(mlx.dt);
-    mlx.dt->map_texts->f = rgb_to_hex(mlx.dt->map_texts->floor);
-    mlx.dt->map_texts->c = rgb_to_hex(mlx.dt->map_texts->ceiling);
-    mlx.textures->north->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_no, &i, &j);
-    mlx.textures->south->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_so, &i, &j);
-    mlx.textures->west->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_we, &i, &j);
-    mlx.textures->east->ptr = mlx_xpm_file_to_image(mlx.mlx_p, mlx.dt->map_texts->text_ea, &i, &j);
+int	main(int ac, char **av)
+{
+	t_mlx	mlx;
+	int		i;
+	int		j;
 
-
-    printf("|%s|\n",  mlx.dt->map_texts->text_no);
-    printf("|%s|\n",  mlx.dt->map_texts->text_so);
-    printf("|%s|\n",  mlx.dt->map_texts->text_we);
-    printf("|%s|\n",  mlx.dt->map_texts->text_ea);
-    printf("%s\n",  mlx.dt->map_texts->floor);
-    printf("%s\n",  mlx.dt->map_texts->ceiling);
-
-    find_player(&mlx);
-    // Main loop
-    int done = 0;
-    while (!done) {
-        // Handle events
-        mlx_hook(mlx.win, 17, 0L, (int (*)())exit, NULL); // Close window
-        mlx_hook(mlx.win, KeyPress, KeyPressMask, keypress, &mlx);
-        raycasting(&mlx);
-        mlx_put_image_to_window(mlx.mlx_p, mlx.win, mlx.img_ptr, 0, 0);
-        mlx_loop(mlx.mlx_p);
-    }
-    mlx_destroy_image(mlx.mlx_p, mlx.img_ptr);
-    mlx_destroy_window(mlx.mlx_p, mlx.win);
-    mlx_destroy_display(mlx.mlx_p);
-    free(mlx.mlx_p);
-    free(mlx.ply);
-    free(mlx.ray);
-    free(mlx.textures);
-
-    free(mlx.rc);
-
-    return 0;
+	if (ac < 2)
+	{
+		fprintf(stderr, "Usage: %s <map_file>\n", av[0]);
+		return (1);
+	}
+	initialize_mlx_structures(&mlx);
+	mlx.dt->backup = read_map(av[1]);
+	mlx.dt->map2d = get_map(mlx.dt->backup);
+	char **teste = get_map(mlx.dt->backup);
+	size_map(mlx.dt);
+	initialize_graphics(&mlx);
+	find_player(&mlx);
+	load_textures(&mlx, &i, &j);
+	int a = 0;
+	while (teste[a])
+	{
+		printf("%s\n", teste[a]);
+		a++;
+	}
+	ft_printf("\n");
+	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
+	 a = 0;
+	while (teste[a])
+	{
+		printf("%s\n", teste[a]);
+		a++;
+	}
+	loop_main(mlx);
+	cleanup(&mlx);
+	return (0);
 }
