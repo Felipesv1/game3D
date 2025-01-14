@@ -6,50 +6,64 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:13:21 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 11:25:55 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:17:18 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void move_player_forward(t_mlx *mlx)
+void	move_player_forward(t_mlx *mlx)
 {
-	ft_printf("posX: %c\n", mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY * PLAYER_SPEED)]);
-	if (mlx->dt->map2d[(int)(mlx->rc->posX + mlx->ray->dirX * PLAYER_SPEED)][(int)mlx->rc->posY] == '0')
+	ft_printf("posX: %c\n",
+		mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY
+			* PLAYER_SPEED)]);
+	if (mlx->dt->map2d[(int)(mlx->rc->posX + mlx->ray->dirX
+			* PLAYER_SPEED)][(int)mlx->rc->posY] == '0')
 		mlx->ply->plyr_x += mlx->ray->dirX * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY * PLAYER_SPEED)] == '0')
+	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY
+			* PLAYER_SPEED)] == '0')
 		mlx->ply->plyr_y += mlx->ray->dirY * PLAYER_SPEED;
 }
 
-void move_player_backward(t_mlx *mlx)
+void	move_player_backward(t_mlx *mlx)
 {
-	if (mlx->dt->map2d[(int)(mlx->rc->posX - mlx->ray->dirX * PLAYER_SPEED)][(int)(mlx->rc->posY)] == '0')
+	if (mlx->dt->map2d[(int)(mlx->rc->posX - mlx->ray->dirX
+			* PLAYER_SPEED)][(int)(mlx->rc->posY)] == '0')
 		mlx->ply->plyr_y -= mlx->ray->dirY * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY - mlx->ray->dirY * PLAYER_SPEED)] == '0')
+	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY - mlx->ray->dirY
+			* PLAYER_SPEED)] == '0')
 		mlx->ply->plyr_x -= mlx->ray->dirX * PLAYER_SPEED;
 }
 
-void rotate_player_right(t_mlx *mlx) // rotate the player
+void	rotate_player_right(t_mlx *mlx) // rotate the player
 {
 	double oldDirX = mlx->ray->dirX;
-	mlx->ray->dirX = mlx->ray->dirX * cos(-ROTATION_SPEED) - mlx->ray->dirY * sin(-ROTATION_SPEED);
-	mlx->ray->dirY = oldDirX * sin(-ROTATION_SPEED) + mlx->ray->dirY * cos(-ROTATION_SPEED);
+	mlx->ray->dirX = mlx->ray->dirX * cos(-ROTATION_SPEED) - mlx->ray->dirY
+		* sin(-ROTATION_SPEED);
+	mlx->ray->dirY = oldDirX * sin(-ROTATION_SPEED) + mlx->ray->dirY
+		* cos(-ROTATION_SPEED);
 	double oldPlaneX = mlx->ray->planeX;
-	mlx->ray->planeX = mlx->ray->planeX * cos(-ROTATION_SPEED) - mlx->ray->planeY * sin(-ROTATION_SPEED);
-	mlx->ray->planeY = oldPlaneX * sin(-ROTATION_SPEED) + mlx->ray->planeY * cos(-ROTATION_SPEED);
+	mlx->ray->planeX = mlx->ray->planeX * cos(-ROTATION_SPEED)
+		- mlx->ray->planeY * sin(-ROTATION_SPEED);
+	mlx->ray->planeY = oldPlaneX * sin(-ROTATION_SPEED) + mlx->ray->planeY
+		* cos(-ROTATION_SPEED);
 }
 
-void rotate_player_left(t_mlx *mlx) // rotate the player
+void	rotate_player_left(t_mlx *mlx) // rotate the player
 {
 	double oldDirX = mlx->ray->dirX;
-	mlx->ray->dirX = mlx->ray->dirX * cos(ROTATION_SPEED) - mlx->ray->dirY * sin(ROTATION_SPEED);
-	mlx->ray->dirY = oldDirX * sin(ROTATION_SPEED) + mlx->ray->dirY * cos(ROTATION_SPEED);
+	mlx->ray->dirX = mlx->ray->dirX * cos(ROTATION_SPEED) - mlx->ray->dirY
+		* sin(ROTATION_SPEED);
+	mlx->ray->dirY = oldDirX * sin(ROTATION_SPEED) + mlx->ray->dirY
+		* cos(ROTATION_SPEED);
 	double oldPlaneX = mlx->ray->planeX;
-	mlx->ray->planeX = mlx->ray->planeX * cos(ROTATION_SPEED) - mlx->ray->planeY * sin(ROTATION_SPEED);
-	mlx->ray->planeY = oldPlaneX * sin(ROTATION_SPEED) + mlx->ray->planeY * cos(ROTATION_SPEED);
+	mlx->ray->planeX = mlx->ray->planeX * cos(ROTATION_SPEED) - mlx->ray->planeY
+		* sin(ROTATION_SPEED);
+	mlx->ray->planeY = oldPlaneX * sin(ROTATION_SPEED) + mlx->ray->planeY
+		* cos(ROTATION_SPEED);
 }
 
-int keypress(int keycode, t_mlx *game)
+int	keypress(int keycode, t_mlx *game)
 {
 	if (keycode == ESC || keycode == KEY_Q)
 		ft_exit(game);
@@ -57,7 +71,7 @@ int keypress(int keycode, t_mlx *game)
 	return (0);
 }
 
-void game_events(int keycode, t_mlx *game)
+void	game_events(int keycode, t_mlx *game)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
 	{
