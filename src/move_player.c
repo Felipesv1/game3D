@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:13:21 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/29 14:21:11 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:25:55 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void move_player_forward(t_mlx *mlx)
 {
-
-	if (!mlx->dt->map[(int)(mlx->rc->posX + mlx->ray->dirX * PLAYER_SPEED)][(int)(mlx->rc->posY)])
+	ft_printf("posX: %c\n", mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY * PLAYER_SPEED)]);
+	if (mlx->dt->map2d[(int)(mlx->rc->posX + mlx->ray->dirX * PLAYER_SPEED)][(int)mlx->rc->posY] == '0')
 		mlx->ply->plyr_x += mlx->ray->dirX * PLAYER_SPEED;
-	if (!mlx->dt->map[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY * PLAYER_SPEED)])
+	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY * PLAYER_SPEED)] == '0')
 		mlx->ply->plyr_y += mlx->ray->dirY * PLAYER_SPEED;
 }
 
 void move_player_backward(t_mlx *mlx)
 {
-	if (!mlx->dt->map[(int)(mlx->rc->posX - mlx->ray->dirX * PLAYER_SPEED)][(int)(mlx->rc->posY)])
+	if (mlx->dt->map2d[(int)(mlx->rc->posX - mlx->ray->dirX * PLAYER_SPEED)][(int)(mlx->rc->posY)] == '0')
 		mlx->ply->plyr_y -= mlx->ray->dirY * PLAYER_SPEED;
-	if (!mlx->dt->map[(int)mlx->rc->posX][(int)(mlx->rc->posY - mlx->ray->dirY * PLAYER_SPEED)])
+	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY - mlx->ray->dirY * PLAYER_SPEED)] == '0')
 		mlx->ply->plyr_x -= mlx->ray->dirX * PLAYER_SPEED;
 }
 
