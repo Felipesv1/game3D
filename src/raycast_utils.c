@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:08:39 by fmontes           #+#    #+#             */
-/*   Updated: 2024/12/19 14:03:05 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/14 11:14:43 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx)
             *mapY += rc->stepY;
             rc->side = 1;
         }
-        if (mlx->dt->map[*mapX][*mapY] > 0)
+        if (mlx->dt->map2d[*mapX][*mapY] !=  '0')
             rc->hit = 1;
     }
 }

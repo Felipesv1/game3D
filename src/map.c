@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:38:17 by felperei          #+#    #+#             */
-/*   Updated: 2024/10/29 12:18:06 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/14 13:04:24 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,34 +72,34 @@ char **get_map(char **data)
     return (map);
 }
 
-int	**copy_char_to_int(char **char_matrix, t_data *dt)
-{
-	int	**int_matrix;
-	int	i;
-	int	j;
+// int	**copy_char_to_int(char **char_matrix, t_data *dt)
+// {
+// 	int	**int_matrix;
+// 	int	i;
+// 	int	j;
 
-	i = 0;
-	int_matrix = (int **)malloc(dt->rows * sizeof(int *));
-	if (!int_matrix)
-		return (NULL);
-	while (i < dt->rows)
-	{
-		int_matrix[i] = (int *)malloc(dt->cols * sizeof(int));
-		if (!int_matrix[i])
-			return (NULL);
-		j = 0;
-		while (j < dt->cols)
-		{
-			if (ft_isdigit(char_matrix[i][j]))
-				int_matrix[i][j] = char_matrix[i][j] - '0';
-			else
-				int_matrix[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-	return (int_matrix);
-}
+// 	i = 0;
+// 	int_matrix = (int **)malloc(dt->rows * sizeof(int *));
+// 	if (!int_matrix)
+// 		return (NULL);
+// 	while (i < dt->rows)
+// 	{
+// 		int_matrix[i] = (int *)malloc(dt->cols * sizeof(int));
+// 		if (!int_matrix[i])
+// 			return (NULL);
+// 		j = 0;
+// 		while (j < dt->cols)
+// 		{
+// 			if (ft_isdigit(char_matrix[i][j]))
+// 				int_matrix[i][j] = char_matrix[i][j] - '0';
+// 			else
+// 				int_matrix[i][j] = 1;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (int_matrix);
+// }
 
 void size_map(t_data *dt) {
     int rows = 0;
