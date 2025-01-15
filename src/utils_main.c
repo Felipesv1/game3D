@@ -49,12 +49,12 @@ void	load_textures(t_mlx *mlx, int *i, int *j)
 			mlx->dt->map_texts->text_we, i, j);
 	mlx->textures->east->ptr = mlx_xpm_file_to_image(mlx->mlx_p,
 			mlx->dt->map_texts->text_ea, i, j);
-	printf("|%s|\n", mlx->dt->map_texts->text_no);
+	/* printf("|%s|\n", mlx->dt->map_texts->text_no);
 	printf("|%s|\n", mlx->dt->map_texts->text_so);
 	printf("|%s|\n", mlx->dt->map_texts->text_we);
 	printf("|%s|\n", mlx->dt->map_texts->text_ea);
 	printf("%s\n", mlx->dt->map_texts->floor);
-	printf("%s\n", mlx->dt->map_texts->ceiling);
+	printf("%s\n", mlx->dt->map_texts->ceiling); */
 }
 
 void	cleanup(t_mlx *mlx)
@@ -67,4 +67,15 @@ void	cleanup(t_mlx *mlx)
 	free(mlx->ray);
 	free(mlx->textures);
 	free(mlx->rc);
+}
+
+int	check_path(char *path)
+{
+	int	fd;
+
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (1);
+	close(fd);
+	return (0);
 }

@@ -1,4 +1,4 @@
-
+tirar o fprintf de onde estiver usando.
 validação do map (flood-fill) , arquivos e rgb
 leaks
 norminette

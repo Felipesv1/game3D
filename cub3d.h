@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 15:13:28 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/15 15:37:30 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,4 +192,7 @@ void	cleanup(t_mlx *mlx);
 void	initialize_graphics(t_mlx *mlx);
 void	load_textures(t_mlx *mlx, int *i, int *j);
 void	initialize_mlx_structures(t_mlx *mlx);
+int	check_path(char *path);
+int	validate_path(t_mlx mlx);
+int	is_valid_rgb(char *str);
 #endif

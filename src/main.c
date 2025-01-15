@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 15:50:13 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/15 16:41:21 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+
+int exit_wrapper(void *param) {
+	(void)param;
+    exit(0);
+    return 0; // Para garantir que a função retorna um valor do tipo 'int'
+}
+
 
 void	loop_main(t_mlx mlx)
 {
@@ -19,14 +27,14 @@ void	loop_main(t_mlx mlx)
 	done = 0;
 	while (!done)
 	{
-		mlx_hook(mlx.win, 17, 0L, (int (*)())exit, NULL);
+		mlx_hook(mlx.win, 17, 0L, exit_wrapper, NULL);
 		mlx_hook(mlx.win, KeyPress, KeyPressMask, keypress, &mlx);
 		raycasting(&mlx);
 		mlx_put_image_to_window(mlx.mlx_p, mlx.win, mlx.img_ptr, 0, 0);
 		mlx_loop(mlx.mlx_p);
 	}
 }
-// Função de Flood Fill
+
 static int	is_valid(int x, int y, char **map)
 {
 	if (x >= 0 && map[x] && y >= 0 && map[x][y] && (map[x][y] == '0'
@@ -57,6 +65,7 @@ int	main(int ac, char **av)
 	t_mlx	mlx;
 	int		i;
 	int		j;
+	char	**teste; 
 
 	if (ac < 2)
 	{
@@ -66,25 +75,22 @@ int	main(int ac, char **av)
 	initialize_mlx_structures(&mlx);
 	mlx.dt->backup = read_map(av[1]);
 	mlx.dt->map2d = get_map(mlx.dt->backup);
-	char **teste = get_map(mlx.dt->backup);
+	teste = get_map(mlx.dt->backup);
 	size_map(mlx.dt);
 	initialize_graphics(&mlx);
 	find_player(&mlx);
 	load_textures(&mlx, &i, &j);
-	int a = 0;
-	while (teste[a])
+	if (validate_path(mlx) == 1)
 	{
-		printf("%s\n", teste[a]);
-		a++;
+		cleanup(&mlx);
+		return (1);
 	}
-	ft_printf("\n");
+	if (is_valid_rgb(mlx.dt->map_texts->ceiling) == 0 || is_valid_rgb(mlx.dt->map_texts->floor) == 0)
+	{
+		printf("Error invalid RGB color\n");
+		return (-1); // Se não for válida, retorna -1
+	}
 	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
-	 a = 0;
-	while (teste[a])
-	{
-		printf("%s\n", teste[a]);
-		a++;
-	}
 	loop_main(mlx);
 	cleanup(&mlx);
 	return (0);

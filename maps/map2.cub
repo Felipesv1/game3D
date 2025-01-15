@@ -3,8 +3,8 @@ SO textures/darwin.xpm
 WE textures/ricardo.xpm
 EA textures/mae.xpm
 
-F 220,100,0
-C 225,30,0
+F 220,100,12
+C 224,255,2
 
         1111111111111111111111111
         1000000000000000000000001
