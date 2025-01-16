@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/15 16:41:21 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:09:50 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,20 @@ int	main(int ac, char **av)
 	if (is_valid_rgb(mlx.dt->map_texts->ceiling) == 0 || is_valid_rgb(mlx.dt->map_texts->floor) == 0)
 	{
 		printf("Error invalid RGB color\n");
-		return (-1); // Se não for válida, retorna -1
+		return (-1);
 	}
 	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
+	int a = 0;
+	while (teste[a])
+	{
+		printf("%s\n", teste[a]);
+		a++;
+	}
+	if (validate_map(teste) == 1)
+	{
+		cleanup(&mlx);
+		return (1);
+	}
 	loop_main(mlx);
 	cleanup(&mlx);
 	return (0);

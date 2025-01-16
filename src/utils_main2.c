@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:42:40 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/15 15:12:54 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:32:05 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,3 +36,31 @@ int validate_path(t_mlx mlx)
 	}
     return (0);
 }
+
+int validate_map(char **map)
+{
+    int i = 0;
+    int j;
+
+    while (map[i])
+    {
+        j = 0;
+        while (map[i][j])
+        {
+            if (map[i][j] == 'F')
+            {
+                if (i == 0 || j == 0 || !map[i + 1] || !map[i][j + 1] ||
+                    map[i - 1][j] == ' ' || map[i + 1][j] == ' ' ||
+                    map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
+                {
+                    printf("Error: map is not closed\n");
+                    return (1);
+                }
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
+

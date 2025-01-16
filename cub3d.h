@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/15 15:37:30 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:10:07 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ typedef struct s_mlx
 	t_textures	*textures;
 
 	t_data		*dt;
-	t_raycast *rc; // Raycasting data
+	t_raycast *rc;
 }				t_mlx;
 
 // MAP
@@ -159,6 +159,7 @@ int				**copy_map(char **map, t_data *dt);
 void			size_map(t_data *dt);
 void			update_map(t_mlx *mlx);
 int				**copy_char_to_int(char **map, t_data *dt);
+int				validate_map(char **map);
 
 // PLAYER
 

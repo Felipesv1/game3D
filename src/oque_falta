@@ -1,5 +1,6 @@
 tirar o fprintf de onde estiver usando.
-validação do map (flood-fill) , arquivos e rgb
+criar uma função para dar free em uma matriz
+validação do map (flood-fill)
 leaks
 norminette
 fazer as verificações (olhar no evals)
