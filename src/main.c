@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/16 17:09:50 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:21:39 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,22 +74,16 @@ int	main(int ac, char **av)
 	}
 	initialize_mlx_structures(&mlx);
 	mlx.dt->backup = read_map(av[1]);
+	is_format_valid(av[1]);
 	mlx.dt->map2d = get_map(mlx.dt->backup);
 	teste = get_map(mlx.dt->backup);
 	size_map(mlx.dt);
 	initialize_graphics(&mlx);
 	find_player(&mlx);
 	load_textures(&mlx, &i, &j);
-	if (validate_path(mlx) == 1)
-	{
-		cleanup(&mlx);
-		return (1);
-	}
-	if (is_valid_rgb(mlx.dt->map_texts->ceiling) == 0 || is_valid_rgb(mlx.dt->map_texts->floor) == 0)
-	{
-		printf("Error invalid RGB color\n");
-		return (-1);
-	}
+	validate_path(mlx);
+	is_valid_rgb(mlx.dt->map_texts->ceiling);
+	is_valid_rgb(mlx.dt->map_texts->floor);
 	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
 	int a = 0;
 	while (teste[a])
@@ -97,11 +91,7 @@ int	main(int ac, char **av)
 		printf("%s\n", teste[a]);
 		a++;
 	}
-	if (validate_map(teste) == 1)
-	{
-		cleanup(&mlx);
-		return (1);
-	}
+	validate_map(teste);
 	loop_main(mlx);
 	cleanup(&mlx);
 	return (0);

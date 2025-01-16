@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:54:30 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/15 17:03:04 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:06:01 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int verify_digits(char **rgb)
     return (1);
 }
 
-int is_valid_rgb(char *str)
+void is_valid_rgb(char *str)
 {
     int r;
     int g;
@@ -46,7 +46,8 @@ int is_valid_rgb(char *str)
         {
             free(rgb);
         }
-        return (0);
+        printf("Error\nInvalid RGB format\n");
+        exit(1);
     }
 
     if (!verify_digits(rgb))
@@ -55,7 +56,8 @@ int is_valid_rgb(char *str)
         free(rgb[1]);
         free(rgb[2]);
         free(rgb);
-        return (0);
+        printf("Error\nInvalid RGB format\n");
+        exit(1);
     }
     r = ft_atoi(rgb[0]);
     g = ft_atoi(rgb[1]);
@@ -66,14 +68,14 @@ int is_valid_rgb(char *str)
         free(rgb[1]);
         free(rgb[2]);
         free(rgb);
-        return (0);
+        printf("Error\nInvalid RGB format\n");
+        exit(1);
     }
 
     free(rgb[0]);
     free(rgb[1]);
     free(rgb[2]);
     free(rgb);
-    return (1);
 }
 
 int rgb_to_hex(char *texture)

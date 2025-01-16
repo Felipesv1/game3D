@@ -1,6 +1,5 @@
 tirar o fprintf de onde estiver usando.
 criar uma função para dar free em uma matriz
-validação do map (flood-fill)
-leaks
+leaks(ate agora nao achei nenhum leak com as validações dando errado, so quando abre o mapa)
 norminette
 fazer as verificações (olhar no evals)

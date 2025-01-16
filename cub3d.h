@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/16 17:10:07 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:19:02 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,8 @@ int				**copy_map(char **map, t_data *dt);
 void			size_map(t_data *dt);
 void			update_map(t_mlx *mlx);
 int				**copy_char_to_int(char **map, t_data *dt);
-int				validate_map(char **map);
+void			validate_map(char **map);
+void			is_format_valid(char *av);
 
 // PLAYER
 
@@ -194,6 +195,6 @@ void	initialize_graphics(t_mlx *mlx);
 void	load_textures(t_mlx *mlx, int *i, int *j);
 void	initialize_mlx_structures(t_mlx *mlx);
 int	check_path(char *path);
-int	validate_path(t_mlx mlx);
-int	is_valid_rgb(char *str);
+void	validate_path(t_mlx mlx);
+void	is_valid_rgb(char *str);
 #endif

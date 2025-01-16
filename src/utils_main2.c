@@ -6,38 +6,37 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:42:40 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/16 17:32:05 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:12:19 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int validate_path(t_mlx mlx)
+void validate_path(t_mlx mlx)
 {
     if (check_path(mlx.dt->map_texts->text_no) == 1)
 	{
 		printf("Error na imagem NO\n");
-		return (1);
+		exit(1);
 	}
     else if (check_path(mlx.dt->map_texts->text_so) == 1)
     {
         printf("Error na imagem SO\n");
-        return (1);
+        exit(1);
     }
     if (check_path(mlx.dt->map_texts->text_we) == 1)
 	{
 		printf("Error na imagem WE\n");
-		return (1);
+		exit(1);
 	}
     if (check_path(mlx.dt->map_texts->text_ea) == 1)
 	{
 		printf("Error na imagem EA\n");
-		return (1);
+		exit(1);
 	}
-    return (0);
 }
 
-int validate_map(char **map)
+void validate_map(char **map)
 {
     int i = 0;
     int j;
@@ -54,13 +53,11 @@ int validate_map(char **map)
                     map[i][j - 1] == ' ' || map[i][j + 1] == ' ')
                 {
                     printf("Error: map is not closed\n");
-                    return (1);
+                    exit(1);
                 }
             }
             j++;
         }
         i++;
     }
-    return (0);
 }
-

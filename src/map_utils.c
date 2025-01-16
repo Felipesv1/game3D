@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:56:51 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 13:16:27 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/16 23:25:07 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,27 @@ void	find_player(t_mlx *mlx)
 	}
 	if (mlx->ply->n_player != 1)
 	{
-		printf("Error\n");
+		printf("Error: player not find\n");
+		exit(1);
+	}
+}
+
+void	is_format_valid(char *av)
+{
+	int	i;
+
+	if (!av)
+		return ;
+	i = 0;
+	while (av[i])
+		i++;
+	i -= 1;
+	if (av[i] == 'b' && av[i - 1] == 'u'
+		&& av[i - 2] == 'c' && av[i - 3] == '.')
+		return ;
+	else
+	{
+		printf("Error: invalid file format\n");
 		exit(1);
 	}
 }
