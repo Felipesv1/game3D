@@ -20,9 +20,13 @@ int	ft_exit(t_mlx *mlx)
 	while (mlx->dt->map2d[i])
 		free(mlx->dt->map2d[i++]);
 	free(mlx->dt->map2d);
-	free(mlx->dt);
-	free(mlx->ply);
-	free(mlx->ray);
+	free(mlx->dt->map_texts->text_no);
+	free(mlx->dt->map_texts->text_so);
+	free(mlx->dt->map_texts->text_we);
+	free(mlx->dt->map_texts->text_ea);
+	free(mlx->dt->map_texts->floor);
+	free(mlx->dt->map_texts->ceiling);
+	free(mlx->dt->map_texts);
 	mlx_destroy_image(mlx->mlx_p, mlx->img_ptr);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	mlx_destroy_display(mlx->mlx_p);
