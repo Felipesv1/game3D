@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:08:27 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 14:08:38 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:31:55 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	initialize_mlx_structures(t_mlx *mlx)
 {
-	mlx->ply = calloc(1, sizeof(t_player));
-	mlx->ray = calloc(1, sizeof(t_ray));
-	mlx->rc = calloc(1, sizeof(t_raycast));
-	mlx->textures = calloc(1, sizeof(t_textures));
-	mlx->textures->north = calloc(1, sizeof(t_texture));
-	mlx->textures->east = calloc(1, sizeof(t_texture));
-	mlx->textures->south = calloc(1, sizeof(t_texture));
-	mlx->textures->west = calloc(1, sizeof(t_texture));
-	mlx->dt = calloc(1, sizeof(t_data));
-	mlx->dt->map_texts = calloc(1, sizeof(t_map_texture));
+	mlx->ply = malloc(sizeof(t_player));
+	mlx->ray = malloc(sizeof(t_ray));
+	mlx->rc = malloc(sizeof(t_raycast));
+	mlx->textures = malloc(sizeof(t_textures));
+	mlx->textures->north = malloc(sizeof(t_texture));
+	mlx->textures->east = malloc(sizeof(t_texture));
+	mlx->textures->south = malloc(sizeof(t_texture));
+	mlx->textures->west = malloc(sizeof(t_texture));
+	mlx->dt = malloc(sizeof(t_data));
+	mlx->dt->map_texts = malloc(sizeof(t_map_texture));
 }
 
 void	initialize_graphics(t_mlx *mlx)
@@ -59,14 +59,25 @@ void	load_textures(t_mlx *mlx, int *i, int *j)
 
 void	cleanup(t_mlx *mlx)
 {
+	free(mlx->ply);
+	free(mlx->ray);
+	free(mlx->rc);
+	free(mlx->textures->north);
+	free(mlx->textures->south);
+	free(mlx->textures->west);
+	free(mlx->textures->east);
+	free(mlx->textures);
+	free(mlx->dt->map_texts->text_no);
+	free(mlx->dt->map_texts->text_so);
+	free(mlx->dt->map_texts->text_we);
+	free(mlx->dt->map_texts->text_ea);
+	free(mlx->dt->map_texts->floor);
+	free(mlx->dt->map_texts->ceiling);
+	free(mlx->dt->map_texts);
+	free(mlx->dt);
 	mlx_destroy_image(mlx->mlx_p, mlx->img_ptr);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	mlx_destroy_display(mlx->mlx_p);
-	free(mlx->mlx_p);
-	free(mlx->ply);
-	free(mlx->ray);
-	free(mlx->textures);
-	free(mlx->rc);
 }
 
 int	check_path(char *path)

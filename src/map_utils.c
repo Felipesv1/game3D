@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:56:51 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/16 23:25:07 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:09:49 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,18 @@ void	is_format_valid(char *av)
 		printf("Error: invalid file format\n");
 		exit(1);
 	}
+}
+
+void	free_matrix(char **matrix)
+{
+	int i = 0;
+
+	if (!matrix)
+		return;
+	while (matrix[i])
+	{
+		free(matrix[i]);
+		i++;
+	}
+	free(matrix);
 }

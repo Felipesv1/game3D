@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/16 23:21:39 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:20:31 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	main(int ac, char **av)
 
 	if (ac < 2)
 	{
-		fprintf(stderr, "Usage: %s <map_file>\n", av[0]);
+		printf("Usage: %s <map_file>\n", av[0]);
 		return (1);
 	}
 	initialize_mlx_structures(&mlx);
@@ -81,16 +81,11 @@ int	main(int ac, char **av)
 	initialize_graphics(&mlx);
 	find_player(&mlx);
 	load_textures(&mlx, &i, &j);
+	free_matrix(mlx.dt->backup);
 	validate_path(mlx);
 	is_valid_rgb(mlx.dt->map_texts->ceiling);
 	is_valid_rgb(mlx.dt->map_texts->floor);
 	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
-	int a = 0;
-	while (teste[a])
-	{
-		printf("%s\n", teste[a]);
-		a++;
-	}
 	validate_map(teste);
 	loop_main(mlx);
 	cleanup(&mlx);

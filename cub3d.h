@@ -6,7 +6,7 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/16 23:19:02 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:10:04 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,4 +197,5 @@ void	initialize_mlx_structures(t_mlx *mlx);
 int	check_path(char *path);
 void	validate_path(t_mlx mlx);
 void	is_valid_rgb(char *str);
+void	free_matrix(char **matrix);
 #endif
