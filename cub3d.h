@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/17 17:10:04 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:03:28 by fmontes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,35 +30,28 @@
 # define KEY_UP 65362
 # define KEY_RIGHT 65363
 # define KEY_DOWN 65364
-# define MLX_ERROR 1
 # define S_W 1920
 # define S_H 1015
-# define FOV 60
 # define ROTATION_SPEED 0.2
 # define PLAYER_SPEED 0.3
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define MAP_WIDTH 24
 # define MAP_HEIGHT 24
-# define NORTH 0
-# define WEST 1
-# define EAST 2
-# define SOUTH 3
+
 typedef struct s_player
 {
 	double		plyr_x;
 	double		plyr_y;
 	int			n_player;
-	double		fov_rd;
-	double		angle;
 }				t_player;
 
 typedef struct s_ray
 {
-	double		dirX;
-	double		dirY;
-	double		planeX;
-	double		planeY;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 }				t_ray;
 
 typedef struct s_texture
@@ -90,50 +83,47 @@ typedef struct s_map_texture
 	int			c;
 }				t_map_texture;
 
-typedef struct s_data // the data structure
+typedef struct s_data
 {
-	char **backup;
-	char **map2d; // the map
-	int **map;    // the map
-	int p_x;      // player x position in the map
-	int p_y;      // player y position in the map
-	int w_map;    // map width
-	int h_map;
-	char *texData;
-	char *imgData;
-	double p_dir_x;
-	double p_dir_y;
-	double plane_x;
-	double plane_y;
-	int drawStart;
-	int drawEnd;
-	int lineHeight;
-	int texX;
-	int bits_per_pixel;
-	int size_line;
-	int endian;
-	char *data;
-	int rows;
-	int cols;
-	char **textu;
-	int buffer[S_W * S_H];
-	char **c_flor; // map height
-	t_map_texture *map_texts;
+	char			**backup;
+	char			**map2d;
+	char			**map_copy;
+	int				p_x;
+	int				p_y;
+	int				w_map;
+	int				h_map;
+	double			p_dir_x;
+	double			p_dir_y;
+	double			plane_x;
+	double			plane_y;
+	int				draw_start;
+	int				draw_end;
+	int				line_height;
+	int				tex_x;
+	int				bits_per_pixel;
+	int				size_line;
+	int				endian;
+	char			*data;
+	int				rows;
+	int				cols;
+	char			**textu;
+	char			**c_flor;
+	t_map_texture	*map_texts;
 }				t_data;
 
 typedef struct s_raycast
 {
-	double		rayDirX;
-	double		rayDirY;
-	double		sideDistX;
-	double		sideDistY;
-	double		deltaDistX;
-	double		deltaDistY;
-	double		perpWallDist;
-	double		posX;
-	double		posY;
-	int			stepX;
-	int			stepY;
+	double		raydir_x;
+	double		raydir_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	double		pos_x;
+	double		pos_y;
+	int			step_x;
+	int			step_y;
 	int			hit;
 	int			side;
 }				t_raycast;
@@ -148,7 +138,7 @@ typedef struct s_mlx
 	t_textures	*textures;
 
 	t_data		*dt;
-	t_raycast *rc;
+	t_raycast	*rc;
 }				t_mlx;
 
 // MAP
@@ -159,8 +149,8 @@ int				**copy_map(char **map, t_data *dt);
 void			size_map(t_data *dt);
 void			update_map(t_mlx *mlx);
 int				**copy_char_to_int(char **map, t_data *dt);
-void			validate_map(char **map);
-void			is_format_valid(char *av);
+void			validate_map(char **map, t_mlx mlx);
+void			is_format_valid(char *av, t_mlx mlx);
 
 // PLAYER
 
@@ -178,9 +168,7 @@ int				get_texture_color(t_mlx *mlx, int x, int y);
 void			calculate_step_and_side_dist(t_raycast *rc, int mapX, int mapY);
 void			perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx);
 double			calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc);
-void			calculate_line_height(t_mlx *mlx, double perpWallDist);
-void			render_column(int x, int drawStart, int drawEnd, int texX,
-					void *tex_ptr, int *buffer);
+void			calculate_line_height(t_mlx *mlx, double perp_wall_dist);
 void			raycasting(t_mlx *mlx);
 
 // TEXTURES
@@ -190,12 +178,19 @@ void			get_floor_ceiling(t_data *data);
 int				rgb_to_hex(char *texture);
 
 // UTILS
-void	cleanup(t_mlx *mlx);
-void	initialize_graphics(t_mlx *mlx);
-void	load_textures(t_mlx *mlx, int *i, int *j);
-void	initialize_mlx_structures(t_mlx *mlx);
-int	check_path(char *path);
-void	validate_path(t_mlx mlx);
-void	is_valid_rgb(char *str);
-void	free_matrix(char **matrix);
+void			cleanup(t_mlx *mlx);
+void			initialize_graphics(t_mlx *mlx);
+void			load_textures(t_mlx *mlx, int *i, int *j);
+void			initialize_mlx_structures(t_mlx *mlx);
+int				check_path(char *path);
+void			validate_path(t_mlx mlx);
+void			is_valid_rgb(char *str, t_mlx mlx);
+void			free_matrix(char **matrix);
 #endif
+
+// SET DIRECTIONS 
+void			set_direction_north(t_mlx *mlx);
+void			set_direction_south(t_mlx *mlx);
+void			set_direction_east(t_mlx *mlx);
+void			set_direction_west(t_mlx *mlx);
+void			handle_player_direction(t_mlx *mlx, int x, int y);

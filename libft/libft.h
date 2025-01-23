@@ -56,6 +56,7 @@ void	ft_putnbr_fd(int n, int fd);
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
+
 char	*get_next_line(int fd);
 char	*gnl_strchr(const char *s, int c);
 int		check_type_input(const char *input, int i, va_list args);

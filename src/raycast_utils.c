@@ -21,16 +21,16 @@ void	draw_buffer(t_mlx *mlx, int x)
 
 	for (y = 0; y < S_H; y++)
 	{
-		if (y < mlx->dt->drawStart)
-			color = mlx->dt->map_texts->f; // Sky color
-		else if (y < mlx->dt->drawEnd)
+		if (y < mlx->dt->draw_start)
+			color = mlx->dt->map_texts->c; // Sky color
+		else if (y < mlx->dt->draw_end)
 		{
-			d = y * 256 - S_H * 128 + mlx->dt->lineHeight * 128;
-			texY = ((d * TEX_HEIGHT) / mlx->dt->lineHeight) / 256;
-			color = get_texture_color(mlx, mlx->dt->texX, texY);
+			d = y * 256 - S_H * 128 + mlx->dt->line_height * 128;
+			texY = ((d * TEX_HEIGHT) / mlx->dt->line_height) / 256;
+			color = get_texture_color(mlx, mlx->dt->tex_x, texY);
 		}
 		else
-			color = mlx->dt->map_texts->c; // Ground color
+			color = mlx->dt->map_texts->f; // Ground color
 		mlx->dt->data[(y * S_W + x) * 4] = color & 0xFF;
 		mlx->dt->data[(y * S_W + x) * 4 + 1] = (color >> 8) & 0xFF;
 		mlx->dt->data[(y * S_W + x) * 4 + 2] = (color >> 16) & 0xFF;
@@ -43,11 +43,11 @@ int	get_texture_color(t_mlx *mlx, int x, int y)
 	void	*img_ptr;
 
 	int bpp, size_line, endian;
-	if (mlx->rc->side && mlx->rc->rayDirY > 0)
+	if (mlx->rc->side && mlx->rc->raydir_y > 0)
 		img_ptr = mlx->textures->east->ptr;
-	else if (mlx->rc->side && mlx->rc->rayDirY < 0)
+	else if (mlx->rc->side && mlx->rc->raydir_y < 0)
 		img_ptr = mlx->textures->west->ptr;
-	else if (!mlx->rc->side && mlx->rc->rayDirX > 0)
+	else if (!mlx->rc->side && mlx->rc->raydir_x > 0)
 		img_ptr = mlx->textures->south->ptr;
 	else
 		img_ptr = mlx->textures->north->ptr;
@@ -57,25 +57,25 @@ int	get_texture_color(t_mlx *mlx, int x, int y)
 
 void	calculate_step_and_side_dist(t_raycast *rc, int mapX, int mapY)
 {
-	if (rc->rayDirX < 0)
+	if (rc->raydir_x < 0)
 	{
-		rc->stepX = -1;
-		rc->sideDistX = (rc->posX - mapX) * rc->deltaDistX;
+		rc->step_x = -1;
+		rc->side_dist_x = (rc->pos_x - mapX) * rc->delta_dist_x;
 	}
 	else
 	{
-		rc->stepX = 1;
-		rc->sideDistX = (mapX + 1.0 - rc->posX) * rc->deltaDistX;
+		rc->step_x = 1;
+		rc->side_dist_x = (mapX + 1.0 - rc->pos_x) * rc->delta_dist_x;
 	}
-	if (rc->rayDirY < 0)
+	if (rc->raydir_y < 0)
 	{
-		rc->stepY = -1;
-		rc->sideDistY = (rc->posY - mapY) * rc->deltaDistY;
+		rc->step_y = -1;
+		rc->side_dist_y = (rc->pos_y - mapY) * rc->delta_dist_y;
 	}
 	else
 	{
-		rc->stepY = 1;
-		rc->sideDistY = (mapY + 1.0 - rc->posY) * rc->deltaDistY;
+		rc->step_y = 1;
+		rc->side_dist_y = (mapY + 1.0 - rc->pos_y) * rc->delta_dist_y;
 	}
 }
 
@@ -83,16 +83,16 @@ void	perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx)
 {
 	while (!(rc->hit))
 	{
-		if (rc->sideDistX < rc->sideDistY)
+		if (rc->side_dist_x < rc->side_dist_y)
 		{
-			rc->sideDistX += rc->deltaDistX;
-			*mapX += rc->stepX;
+			rc->side_dist_x += rc->delta_dist_x;
+			*mapX += rc->step_x;
 			rc->side = 0;
 		}
 		else
 		{
-			rc->sideDistY += rc->deltaDistY;
-			*mapY += rc->stepY;
+			rc->side_dist_y += rc->delta_dist_y;
+			*mapY += rc->step_y;
 			rc->side = 1;
 		}
 		if (mlx->dt->map2d[*mapX][*mapY] != '0')
@@ -103,7 +103,7 @@ void	perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx)
 double	calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc)
 {
 	if (rc->side == 0)
-		return ((mapX - rc->posX + (1 - rc->stepX) / 2) / rc->rayDirX);
+		return ((mapX - rc->pos_x + (1 - rc->step_x) / 2) / rc->raydir_x);
 	else
-		return ((mapY - rc->posY + (1 - rc->stepY) / 2) / rc->rayDirY);
+		return ((mapY - rc->pos_y + (1 - rc->step_y) / 2) / rc->raydir_y);
 }

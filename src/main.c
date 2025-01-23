@@ -3,22 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/17 17:20:31 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:46:51 by fmontes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-
-int exit_wrapper(void *param) {
+int	exit_wrapper(void *param)
+{
 	(void)param;
-    exit(0);
-    return 0; // Para garantir que a função retorna um valor do tipo 'int'
+	exit(0);
+	return (0); // Para garantir que a função retorna um valor do tipo 'int'
 }
-
 
 void	loop_main(t_mlx mlx)
 {
@@ -65,7 +64,6 @@ int	main(int ac, char **av)
 	t_mlx	mlx;
 	int		i;
 	int		j;
-	char	**teste; 
 
 	if (ac < 2)
 	{
@@ -74,20 +72,21 @@ int	main(int ac, char **av)
 	}
 	initialize_mlx_structures(&mlx);
 	mlx.dt->backup = read_map(av[1]);
-	is_format_valid(av[1]);
+	is_format_valid(av[1], mlx);
 	mlx.dt->map2d = get_map(mlx.dt->backup);
-	teste = get_map(mlx.dt->backup);
+	mlx.dt->map_copy = get_map(mlx.dt->backup);
 	size_map(mlx.dt);
-	initialize_graphics(&mlx);
 	find_player(&mlx);
+	
+	initialize_graphics(&mlx);
 	load_textures(&mlx, &i, &j);
-	free_matrix(mlx.dt->backup);
+	
+	is_valid_rgb(mlx.dt->map_texts->ceiling, mlx);
+	is_valid_rgb(mlx.dt->map_texts->floor, mlx);
 	validate_path(mlx);
-	is_valid_rgb(mlx.dt->map_texts->ceiling);
-	is_valid_rgb(mlx.dt->map_texts->floor);
-	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, teste);
-	validate_map(teste);
+	free_matrix(mlx.dt->backup);
+	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, mlx.dt->map_copy);
+	validate_map(mlx.dt->map_copy, mlx);
 	loop_main(mlx);
-	cleanup(&mlx);
 	return (0);
 }

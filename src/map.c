@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:38:17 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/14 13:17:24 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/23 15:07:51 by fmontes          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-// Função para ler o arquivo e retornar o conteúdo como um array de strings
-char	**read_map(char *path)
+/* char	**read_map(char *path)
 {
 	int		fd;
 	char	buffer[1024];
@@ -21,6 +20,10 @@ char	**read_map(char *path)
 	char	*holder_map;
 	char	*temp;
 	char	**map;
+	char	buffer[1024];
+	ssize_t	bytes_read;
+	char	*holder_map;
+	char	*temp;
 
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -29,9 +32,11 @@ char	**read_map(char *path)
 	if (!holder_map)
 		return (NULL);
 	holder_map[0] = '\0';
-	// Ler o arquivo em partes
-	while ((bytes_read = read(fd, buffer, 1023)) > 0)
+	while (1)
 	{
+		bytes_read = read(fd, buffer, 1023);
+		if (bytes_read <= 0)
+			break ;
 		buffer[bytes_read] = '\0';
 		temp = holder_map;
 		holder_map = ft_strjoin(holder_map, buffer);
@@ -43,15 +48,16 @@ char	**read_map(char *path)
 	map = ft_split(holder_map, '\n');
 	free(holder_map);
 	return (map);
-}
+} */
 
-char	**get_map(char **data)
+/* char	**get_map(char **data)
 {
 	int		i;
 	int		j;
 	int		rows;
 	char	**map;
 	int		start_line;
+	int		rows;
 
 	start_line = 6;
 	rows = 0;
@@ -60,7 +66,8 @@ char	**get_map(char **data)
 	map = malloc(sizeof(char *) * (rows + 1));
 	if (!map)
 		return (NULL);
-	for (i = 0; i < rows; i++)
+	i = 0;
+	while (i < rows)
 	{
 		map[i] = malloc(sizeof(char) * (ft_strlen(data[start_line + i]) + 1));
 		if (!map[i])
@@ -72,9 +79,57 @@ char	**get_map(char **data)
 			j++;
 		}
 		map[i][j] = '\0';
+		i++;
 	}
 	map[rows] = NULL;
 	return (map);
+} */
+static int	count_rows(char **data, int start_line)
+{
+	int rows;
+	
+	rows = 0;
+	while (data[start_line + rows])
+		rows++;
+	return (rows);
+}
+
+static char	**allocate_map(char **data, int start_line, int rows)
+{
+	char	**map;
+	int		i;
+	int		j;
+
+	map = malloc(sizeof(char *) * (rows + 1));
+	if (!map)
+		return (NULL);
+	i = 0;
+	while (i < rows)
+	{
+		map[i] = malloc(sizeof(char) * (ft_strlen(data[start_line + i]) + 1));
+		if (!map[i])
+			return (NULL);
+		j = 0;
+		while (data[start_line + i][j])
+		{
+			map[i][j] = data[start_line + i][j];
+			j++;
+		}
+		map[i][j] = '\0';
+		i++;
+	}
+	map[rows] = NULL;
+	return (map);
+}
+
+char	**get_map(char **data)
+{
+	int	start_line;
+	int	rows;
+
+	start_line = 6;
+	rows = count_rows(data, start_line);
+	return (allocate_map(data, start_line, rows));
 }
 
 // int	**copy_char_to_int(char **char_matrix, t_data *dt)
@@ -135,7 +190,6 @@ void	update_map(t_mlx *mlx)
 {
 	raycasting(mlx);
 	mlx_put_image_to_window(mlx->mlx_p, mlx->win, mlx->img_ptr, 0, 0);
-	// draw_buffer(mlx->mlx_p, mlx->win, mlx->img_ptr, mlx->dt->buffer);
 }
 // int	size_map(t_data *dt)
 // {

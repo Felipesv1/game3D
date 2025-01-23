@@ -14,52 +14,49 @@
 
 void	move_player_forward(t_mlx *mlx)
 {
-	ft_printf("posX: %c\n",
-		mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY
-			* PLAYER_SPEED)]);
-	if (mlx->dt->map2d[(int)(mlx->rc->posX + mlx->ray->dirX
-			* PLAYER_SPEED)][(int)mlx->rc->posY] == '0')
-		mlx->ply->plyr_x += mlx->ray->dirX * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY + mlx->ray->dirY
+	if (mlx->dt->map2d[(int)(mlx->rc->pos_x + mlx->ray->dir_x
+			* PLAYER_SPEED)][(int)mlx->rc->pos_y] == '0')
+		mlx->ply->plyr_x += mlx->ray->dir_x * PLAYER_SPEED;
+	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y + mlx->ray->dir_y
 			* PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_y += mlx->ray->dirY * PLAYER_SPEED;
+		mlx->ply->plyr_y += mlx->ray->dir_y * PLAYER_SPEED;
 }
 
 void	move_player_backward(t_mlx *mlx)
 {
-	if (mlx->dt->map2d[(int)(mlx->rc->posX - mlx->ray->dirX
-			* PLAYER_SPEED)][(int)(mlx->rc->posY)] == '0')
-		mlx->ply->plyr_y -= mlx->ray->dirY * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->posX][(int)(mlx->rc->posY - mlx->ray->dirY
+	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->dir_x
+			* PLAYER_SPEED)][(int)(mlx->rc->pos_y)] == '0')
+		mlx->ply->plyr_y -= mlx->ray->dir_y * PLAYER_SPEED;
+	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y - mlx->ray->dir_y
 			* PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_x -= mlx->ray->dirX * PLAYER_SPEED;
+		mlx->ply->plyr_x -= mlx->ray->dir_x * PLAYER_SPEED;
 }
 
 void	rotate_player_right(t_mlx *mlx) // rotate the player
 {
-	double oldDirX = mlx->ray->dirX;
-	mlx->ray->dirX = mlx->ray->dirX * cos(-ROTATION_SPEED) - mlx->ray->dirY
+	double olddir_x = mlx->ray->dir_x;
+	mlx->ray->dir_x = mlx->ray->dir_x * cos(-ROTATION_SPEED) - mlx->ray->dir_y
 		* sin(-ROTATION_SPEED);
-	mlx->ray->dirY = oldDirX * sin(-ROTATION_SPEED) + mlx->ray->dirY
+	mlx->ray->dir_y = olddir_x * sin(-ROTATION_SPEED) + mlx->ray->dir_y
 		* cos(-ROTATION_SPEED);
-	double oldPlaneX = mlx->ray->planeX;
-	mlx->ray->planeX = mlx->ray->planeX * cos(-ROTATION_SPEED)
-		- mlx->ray->planeY * sin(-ROTATION_SPEED);
-	mlx->ray->planeY = oldPlaneX * sin(-ROTATION_SPEED) + mlx->ray->planeY
+	double oldplane_x = mlx->ray->plane_x;
+	mlx->ray->plane_x = mlx->ray->plane_x * cos(-ROTATION_SPEED)
+		- mlx->ray->plane_y * sin(-ROTATION_SPEED);
+	mlx->ray->plane_y = oldplane_x * sin(-ROTATION_SPEED) + mlx->ray->plane_y
 		* cos(-ROTATION_SPEED);
 }
 
 void	rotate_player_left(t_mlx *mlx) // rotate the player
 {
-	double oldDirX = mlx->ray->dirX;
-	mlx->ray->dirX = mlx->ray->dirX * cos(ROTATION_SPEED) - mlx->ray->dirY
+	double olddir_x = mlx->ray->dir_x;
+	mlx->ray->dir_x = mlx->ray->dir_x * cos(ROTATION_SPEED) - mlx->ray->dir_y
 		* sin(ROTATION_SPEED);
-	mlx->ray->dirY = oldDirX * sin(ROTATION_SPEED) + mlx->ray->dirY
+	mlx->ray->dir_y = olddir_x * sin(ROTATION_SPEED) + mlx->ray->dir_y
 		* cos(ROTATION_SPEED);
-	double oldPlaneX = mlx->ray->planeX;
-	mlx->ray->planeX = mlx->ray->planeX * cos(ROTATION_SPEED) - mlx->ray->planeY
+	double oldplane_x = mlx->ray->plane_x;
+	mlx->ray->plane_x = mlx->ray->plane_x * cos(ROTATION_SPEED) - mlx->ray->plane_y
 		* sin(ROTATION_SPEED);
-	mlx->ray->planeY = oldPlaneX * sin(ROTATION_SPEED) + mlx->ray->planeY
+	mlx->ray->plane_y = oldplane_x * sin(ROTATION_SPEED) + mlx->ray->plane_y
 		* cos(ROTATION_SPEED);
 }
 
