@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/23 15:46:51 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/24 17:08:16 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int ac, char **av)
 	
 	initialize_graphics(&mlx);
 	load_textures(&mlx, &i, &j);
-	
+
 	is_valid_rgb(mlx.dt->map_texts->ceiling, mlx);
 	is_valid_rgb(mlx.dt->map_texts->floor, mlx);
 	validate_path(mlx);

@@ -6,11 +6,38 @@
 /*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:54:30 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/16 23:06:01 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/24 15:09:31 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static void clean_rgb(t_mlx *mlx){
+	free(mlx->ply);
+	free(mlx->ray);
+	free(mlx->rc);
+	free(mlx->dt->map_texts->text_no);
+	free(mlx->dt->map_texts->text_so);
+	free(mlx->dt->map_texts->text_we);
+	free(mlx->dt->map_texts->text_ea);
+	free(mlx->dt->map_texts->floor);
+	free(mlx->dt->map_texts->ceiling);
+	free(mlx->dt->map_texts);
+	free_matrix(mlx->dt->backup);
+	free_matrix(mlx->dt->map2d);
+	free_matrix(mlx->dt->map_copy);
+	free(mlx->dt);
+	destroy_image(mlx);
+	mlx_destroy_window(mlx->mlx_p, mlx->win);
+	mlx_destroy_display(mlx->mlx_p);
+	free(mlx->textures->north);
+	free(mlx->textures->south);
+	free(mlx->textures->west);
+	free(mlx->textures->east);
+	free(mlx->textures);
+	free(mlx->mlx_p);
+}
+
 
 static int	verify_digits(char **rgb)
 {
@@ -44,7 +71,7 @@ void	is_valid_rgb(char *str, t_mlx mlx)
 	{
 		free_matrix(rgb);
 		printf("Error\nInvalid RGB format\n");
-		cleanup(&mlx);
+		clean_rgb(&mlx);
 		exit(1);
 	}
 	if (!verify_digits(rgb))
@@ -54,7 +81,7 @@ void	is_valid_rgb(char *str, t_mlx mlx)
 		free(rgb[2]);
 		free(rgb);
 		printf("Error\nInvalid RGB format\n");
-		cleanup(&mlx);
+		clean_rgb(&mlx);
 		exit(1);
 	}
 	r = ft_atoi(rgb[0]);
@@ -67,7 +94,7 @@ void	is_valid_rgb(char *str, t_mlx mlx)
 		free(rgb[2]);
 		free(rgb);
 		printf("Error\nInvalid RGB format\n");
-		cleanup(&mlx);
+		clean_rgb(&mlx);
 		exit(1);
 	}
 	free(rgb[0]);

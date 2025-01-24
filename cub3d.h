@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/23 15:03:28 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/24 15:35:25 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,8 @@ int				check_path(char *path);
 void			validate_path(t_mlx mlx);
 void			is_valid_rgb(char *str, t_mlx mlx);
 void			free_matrix(char **matrix);
+void			destroy_image(t_mlx *mlx);
+void			clean(t_mlx *mlx);
 #endif
 
 // SET DIRECTIONS 

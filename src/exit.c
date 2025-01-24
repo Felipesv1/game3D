@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:12:21 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/23 15:10:00 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/24 14:45:12 by vboxuser         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	destroy_image(t_mlx *mlx)
+void	destroy_image(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx_p, mlx->img_ptr);
 	mlx_destroy_image(mlx->mlx_p, mlx->textures->north->ptr);
