@@ -12,12 +12,32 @@
 
 #include "../cub3d.h"
 
-static void clean_path(t_mlx *mlx){
-	cleanup(mlx);
+ void clean_path(t_mlx *mlx){
+	// cleanup(mlx);
+	free_matrix(mlx->dt->backup);
+	free_matrix(mlx->dt->map2d);
+	free_matrix(mlx->dt->map_copy);
+	free(mlx->dt->map_texts->text_no);
+	free(mlx->dt->map_texts->text_so);
+	free(mlx->dt->map_texts->text_we);
+	free(mlx->dt->map_texts->text_ea);
+	free(mlx->dt->map_texts->floor);
+	free(mlx->dt->map_texts->ceiling);
+	free(mlx->dt->map_texts);
+	free(mlx->textures->north);
+	free(mlx->textures->south);
+	free(mlx->textures->west);
+	free(mlx->textures->east);
+	free(mlx->textures);
 	mlx_destroy_image(mlx->mlx_p, mlx->img_ptr);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	mlx_destroy_display(mlx->mlx_p);
 	free(mlx->mlx_p);
+	free(mlx->ply);
+	free(mlx->ray);	
+	free(mlx->rc);
+	free(mlx->dt);
+	
 }
 
 static void clean_map(t_mlx *mlx){
@@ -34,7 +54,6 @@ static void clean_map(t_mlx *mlx){
 	free_matrix(mlx->dt->map2d);
 	free_matrix(mlx->dt->map_copy);
 	free(mlx->dt);
-	destroy_image(mlx);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	mlx_destroy_display(mlx->mlx_p);
 	free(mlx->textures->north);
@@ -51,25 +70,37 @@ void	validate_path(t_mlx mlx)
 	if (check_path(mlx.dt->map_texts->text_no) == 1)
 	{
 		printf("Error na imagem NO\n");
-		mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
 		clean_path(&mlx);
 		exit(1);
 	}
 	else if (check_path(mlx.dt->map_texts->text_so) == 1)
 	{
 		printf("Error na imagem SO\n");
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
 		clean_path(&mlx);
 		exit(1);
 	}
 	if (check_path(mlx.dt->map_texts->text_we) == 1)
 	{
 		printf("Error na imagem WE\n");
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
 		clean_path(&mlx);
 		exit(1);
 	}
 	if (check_path(mlx.dt->map_texts->text_ea) == 1)
 	{
 		printf("Error na imagem EA\n");
+
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
+		mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);
 		clean_path(&mlx);
 		exit(1);
 	}

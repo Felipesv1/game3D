@@ -80,10 +80,10 @@ int	main(int ac, char **av)
 	
 	initialize_graphics(&mlx);
 	load_textures(&mlx, &i, &j);
+	validate_path(mlx);
 
 	is_valid_rgb(mlx.dt->map_texts->ceiling, mlx);
 	is_valid_rgb(mlx.dt->map_texts->floor, mlx);
-	validate_path(mlx);
 	free_matrix(mlx.dt->backup);
 	flood_fill(mlx.ply->plyr_x, mlx.ply->plyr_y, mlx.dt->map_copy);
 	validate_map(mlx.dt->map_copy, mlx);
