@@ -54,6 +54,7 @@ static void clean_map(t_mlx *mlx){
 	free_matrix(mlx->dt->map2d);
 	free_matrix(mlx->dt->map_copy);
 	free(mlx->dt);
+	destroy_image(mlx);
 	mlx_destroy_window(mlx->mlx_p, mlx->win);
 	mlx_destroy_display(mlx->mlx_p);
 	free(mlx->textures->north);
@@ -124,6 +125,7 @@ void	validate_map(char **map, t_mlx mlx)
 				{
 					printf("Error: map is not closed\n");
 					clean_map(&mlx);
+
 					exit(1);
 				}
 			}
