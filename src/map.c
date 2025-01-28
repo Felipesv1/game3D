@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/02 12:38:17 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/23 15:07:51 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/28 10:37:57 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@
 } */
 static int	count_rows(char **data, int start_line)
 {
-	int rows;
-	
+	int	rows;
+
 	rows = 0;
 	while (data[start_line + rows])
 		rows++;

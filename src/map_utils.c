@@ -3,24 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmontes <fmontes@student.42.fr>            +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:56:51 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/23 15:11:20 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/28 10:29:18 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void verify_one_player(t_mlx *mlx)
+void	verify_one_player(t_mlx *mlx)
 {
-		if (mlx->ply->n_player != 1)
+	if (mlx->ply->n_player != 1)
 	{
 		printf("Error: player not find\n");
 		cleanup(mlx);
 		exit(1);
 	}
 }
+
 void	find_player(t_mlx *mlx)
 {
 	int	x;
@@ -47,8 +48,6 @@ void	find_player(t_mlx *mlx)
 	verify_one_player(mlx);
 }
 
-
-
 void	is_format_valid(char *av, t_mlx mlx)
 {
 	int	i;
@@ -59,8 +58,8 @@ void	is_format_valid(char *av, t_mlx mlx)
 	while (av[i])
 		i++;
 	i -= 1;
-	if (av[i] == 'b' && av[i - 1] == 'u' && av[i - 2] == 'c' && av[i
-			- 3] == '.')
+	if (av[i] == 'b' && av[i - 1] == 'u' && av[i - 2] == 'c'
+		&& av[i - 3] == '.')
 		return ;
 	else
 	{
@@ -69,7 +68,6 @@ void	is_format_valid(char *av, t_mlx mlx)
 		exit(1);
 	}
 }
-
 
 static char	*read_file_to_str(int fd)
 {

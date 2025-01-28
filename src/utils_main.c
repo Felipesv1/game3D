@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:08:27 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/24 15:35:19 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/28 10:24:04 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ void	cleanup(t_mlx *mlx)
 	free_matrix(mlx->dt->map2d);
 	free_matrix(mlx->dt->map_copy);
 	free(mlx->dt);
-
 }
 
 int	check_path(char *path)

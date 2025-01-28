@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/24 17:08:16 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:24:32 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	exit_wrapper(void *param)
 {
 	(void)param;
 	exit(0);
-	return (0); // Para garantir que a função retorna um valor do tipo 'int'
+	return (0);
 }
 
 void	loop_main(t_mlx mlx)
@@ -43,20 +43,13 @@ static int	is_valid(int x, int y, char **map)
 	return (0);
 }
 
-int	flood_fill(int x, int y, char **map)
+void	verify_ac(int ac, char **av)
 {
-	if (!is_valid(x, y, map) || map[x][y] == 'F')
-		return (0);
-	map[x][y] = 'F';
-	if (flood_fill(x + 1, y, map))
-		return (1);
-	if (flood_fill(x - 1, y, map))
-		return (1);
-	if (flood_fill(x, y + 1, map))
-		return (1);
-	if (flood_fill(x, y - 1, map))
-		return (1);
-	return (0);
+	if (ac < 2)
+	{
+		printf("Usage: %s <map_file>\n", av[0]);
+		exit(1);
+	}
 }
 
 int	main(int ac, char **av)
@@ -65,11 +58,7 @@ int	main(int ac, char **av)
 	int		i;
 	int		j;
 
-	if (ac < 2)
-	{
-		printf("Usage: %s <map_file>\n", av[0]);
-		return (1);
-	}
+	verify_ac(ac, av);
 	initialize_mlx_structures(&mlx);
 	mlx.dt->backup = read_map(av[1]);
 	is_format_valid(av[1], mlx);
@@ -77,11 +66,9 @@ int	main(int ac, char **av)
 	mlx.dt->map_copy = get_map(mlx.dt->backup);
 	size_map(mlx.dt);
 	find_player(&mlx);
-	
 	initialize_graphics(&mlx);
 	load_textures(&mlx, &i, &j);
 	validate_path(mlx);
-
 	is_valid_rgb(mlx.dt->map_texts->ceiling, mlx);
 	is_valid_rgb(mlx.dt->map_texts->floor, mlx);
 	free_matrix(mlx.dt->backup);

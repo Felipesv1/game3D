@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:12:21 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/24 14:45:12 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:14:18 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ int	ft_exit(t_mlx *mlx)
 	free(mlx->mlx_p);
 	printf("Game closed\n");
 	exit(0);
+}
+
+int	keypress(int keycode, t_mlx *game)
+{
+	if (keycode == ESC || keycode == KEY_Q)
+		ft_exit(game);
+	game_events(keycode, game);
+	return (0);
 }
 
 void	free_matrix(char **matrix)

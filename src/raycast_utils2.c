@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:09:33 by fmontes           #+#    #+#             */
-/*   Updated: 2025/01/23 12:51:04 by fmontes          ###   ########.fr       */
+/*   Updated: 2025/01/28 10:58:19 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	calculate_tex_x(t_mlx *mlx)
 
 static void	get_ray_dir(t_mlx *mlx, int x)
 {
-	mlx->rc->raydir_x = mlx->ray->dir_x + mlx->ray->plane_x * (2 * x / (double)S_W
-			- 1);
-	mlx->rc->raydir_y = mlx->ray->dir_y + mlx->ray->plane_y * (2 * x / (double)S_W
-			- 1);
+	mlx->rc->raydir_x = mlx->ray->dir_x + mlx->ray->plane_x * (2 * x
+			/ (double)S_W - 1);
+	mlx->rc->raydir_y = mlx->ray->dir_y + mlx->ray->plane_y * (2 * x
+			/ (double)S_W - 1);
 }
 
 void	raycasting(t_mlx *mlx)
@@ -69,7 +69,7 @@ void	raycasting(t_mlx *mlx)
 	x = 0;
 	mlx->rc->pos_x = mlx->ply->plyr_x;
 	mlx->rc->pos_y = mlx->ply->plyr_y;
-	while (x < S_W)
+	while (x++ < S_W)
 	{
 		get_ray_dir(mlx, x);
 		mlx->rc->hit = 0;
@@ -79,10 +79,10 @@ void	raycasting(t_mlx *mlx)
 		mlx->rc->delta_dist_y = calculate_delta_dist(mlx->rc->raydir_y);
 		calculate_step_and_side_dist(mlx->rc, map_x, map_y);
 		perform_dda(&map_x, &map_y, mlx->rc, mlx);
-		mlx->rc->perp_wall_dist = calculate_perp_wall_dist(map_x, map_y, mlx->rc);
+		mlx->rc->perp_wall_dist = calculate_perp_wall_dist(map_x, map_y,
+				mlx->rc);
 		calculate_line_height(mlx, mlx->rc->perp_wall_dist);
 		mlx->dt->tex_x = calculate_tex_x(mlx);
 		draw_buffer(mlx, x);
-		x++;
 	}
 }

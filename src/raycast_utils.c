@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/16 14:08:39 by fmontes           #+#    #+#             */
-/*   Updated: 2025/01/14 13:17:11 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:12:27 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,25 @@ void	draw_buffer(t_mlx *mlx, int x)
 	int	y;
 	int	color;
 	int	d;
-	int	texY;
+	int	tex_y;
 
-	for (y = 0; y < S_H; y++)
+	y = 0;
+	while (y < S_H)
 	{
 		if (y < mlx->dt->draw_start)
-			color = mlx->dt->map_texts->c; // Sky color
+			color = mlx->dt->map_texts->c;
 		else if (y < mlx->dt->draw_end)
 		{
 			d = y * 256 - S_H * 128 + mlx->dt->line_height * 128;
-			texY = ((d * TEX_HEIGHT) / mlx->dt->line_height) / 256;
-			color = get_texture_color(mlx, mlx->dt->tex_x, texY);
+			tex_y = ((d * TEX_HEIGHT) / mlx->dt->line_height) / 256;
+			color = get_texture_color(mlx, mlx->dt->tex_x, tex_y);
 		}
 		else
-			color = mlx->dt->map_texts->f; // Ground color
+			color = mlx->dt->map_texts->f;
 		mlx->dt->data[(y * S_W + x) * 4] = color & 0xFF;
 		mlx->dt->data[(y * S_W + x) * 4 + 1] = (color >> 8) & 0xFF;
 		mlx->dt->data[(y * S_W + x) * 4 + 2] = (color >> 16) & 0xFF;
+		y++;
 	}
 }
 
@@ -41,8 +43,10 @@ int	get_texture_color(t_mlx *mlx, int x, int y)
 {
 	char	*data;
 	void	*img_ptr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 
-	int bpp, size_line, endian;
 	if (mlx->rc->side && mlx->rc->raydir_y > 0)
 		img_ptr = mlx->textures->east->ptr;
 	else if (mlx->rc->side && mlx->rc->raydir_y < 0)

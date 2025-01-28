@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/24 15:35:25 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:24:09 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,47 +41,47 @@
 
 typedef struct s_player
 {
-	double		plyr_x;
-	double		plyr_y;
-	int			n_player;
-}				t_player;
+	double			plyr_x;
+	double			plyr_y;
+	int				n_player;
+}					t_player;
 
 typedef struct s_ray
 {
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
-}				t_ray;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+}					t_ray;
 
 typedef struct s_texture
 {
-	void		*ptr;
-	int			w;
-	int			h;
+	void			*ptr;
+	int				w;
+	int				h;
 
-}				t_texture;
+}					t_texture;
 
 typedef struct s_textures
 {
-	t_texture	*north;
-	t_texture	*west;
-	t_texture	*east;
-	t_texture	*south;
+	t_texture		*north;
+	t_texture		*west;
+	t_texture		*east;
+	t_texture		*south;
 
-}				t_textures;
+}					t_textures;
 
 typedef struct s_map_texture
 {
-	char		*text_no;
-	char		*text_so;
-	char		*text_we;
-	char		*text_ea;
-	char		*floor;
-	char		*ceiling;
-	int			f;
-	int			c;
-}				t_map_texture;
+	char			*text_no;
+	char			*text_so;
+	char			*text_we;
+	char			*text_ea;
+	char			*floor;
+	char			*ceiling;
+	int				f;
+	int				c;
+}					t_map_texture;
 
 typedef struct s_data
 {
@@ -109,90 +109,99 @@ typedef struct s_data
 	char			**textu;
 	char			**c_flor;
 	t_map_texture	*map_texts;
-}				t_data;
+}					t_data;
 
 typedef struct s_raycast
 {
-	double		raydir_x;
-	double		raydir_y;
-	double		side_dist_x;
-	double		side_dist_y;
-	double		delta_dist_x;
-	double		delta_dist_y;
-	double		perp_wall_dist;
-	double		pos_x;
-	double		pos_y;
-	int			step_x;
-	int			step_y;
-	int			hit;
-	int			side;
-}				t_raycast;
+	double			raydir_x;
+	double			raydir_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
+	double			pos_x;
+	double			pos_y;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+}					t_raycast;
 
 typedef struct s_mlx
 {
-	void		*mlx_p;
-	void		*win;
-	void		*img_ptr;
-	t_player	*ply;
-	t_ray		*ray;
-	t_textures	*textures;
+	void			*mlx_p;
+	void			*win;
+	void			*img_ptr;
+	t_player		*ply;
+	t_ray			*ray;
+	t_textures		*textures;
 
-	t_data		*dt;
-	t_raycast	*rc;
-}				t_mlx;
+	t_data			*dt;
+	t_raycast		*rc;
+}					t_mlx;
 
 // MAP
-int				ft_exit(t_mlx *mlx);
-char			**read_map(char *path);
-char			**get_map(char **path);
-int				**copy_map(char **map, t_data *dt);
-void			size_map(t_data *dt);
-void			update_map(t_mlx *mlx);
-int				**copy_char_to_int(char **map, t_data *dt);
-void			validate_map(char **map, t_mlx mlx);
-void			is_format_valid(char *av, t_mlx mlx);
+int					ft_exit(t_mlx *mlx);
+char				**read_map(char *path);
+char				**get_map(char **path);
+int					**copy_map(char **map, t_data *dt);
+void				size_map(t_data *dt);
+void				update_map(t_mlx *mlx);
+int					**copy_char_to_int(char **map, t_data *dt);
+void				validate_map(char **map, t_mlx mlx);
+void				is_format_valid(char *av, t_mlx mlx);
 
 // PLAYER
 
-void			move_player_forward(t_mlx *mlx);
-void			move_player_backward(t_mlx *mlx);
-void			rotate_player(t_mlx *mlx, int i);
-int				keypress(int keycode, t_mlx *game);
-void			game_events(int keycode, t_mlx *game);
-void			find_player(t_mlx *mlx);
+void				move_player_forward(t_mlx *mlx);
+void				move_player_backward(t_mlx *mlx);
+void				rotate_player(t_mlx *mlx, int i);
+int					keypress(int keycode, t_mlx *game);
+void				game_events(int keycode, t_mlx *game);
+void				find_player(t_mlx *mlx);
+int					flood_fill(int x, int y, char **map);
 
 // RAYCASTING
 
-void			draw_buffer(t_mlx *mlx, int x);
-int				get_texture_color(t_mlx *mlx, int x, int y);
-void			calculate_step_and_side_dist(t_raycast *rc, int mapX, int mapY);
-void			perform_dda(int *mapX, int *mapY, t_raycast *rc, t_mlx *mlx);
-double			calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc);
-void			calculate_line_height(t_mlx *mlx, double perp_wall_dist);
-void			raycasting(t_mlx *mlx);
+void				draw_buffer(t_mlx *mlx, int x);
+int					get_texture_color(t_mlx *mlx, int x, int y);
+void				calculate_step_and_side_dist(t_raycast *rc, int mapX,
+						int mapY);
+void				perform_dda(int *mapX, int *mapY, t_raycast *rc,
+						t_mlx *mlx);
+double				calculate_perp_wall_dist(int mapX, int mapY, t_raycast *rc);
+void				calculate_line_height(t_mlx *mlx, double perp_wall_dist);
+void				raycasting(t_mlx *mlx);
 
 // TEXTURES
 
-void			get_textures(t_data *data);
-void			get_floor_ceiling(t_data *data);
-int				rgb_to_hex(char *texture);
+void				get_textures(t_data *data);
+void				get_floor_ceiling(t_data *data);
+int					rgb_to_hex(char *texture);
 
 // UTILS
-void			cleanup(t_mlx *mlx);
-void			initialize_graphics(t_mlx *mlx);
-void			load_textures(t_mlx *mlx, int *i, int *j);
-void			initialize_mlx_structures(t_mlx *mlx);
-int				check_path(char *path);
-void			validate_path(t_mlx mlx);
-void			is_valid_rgb(char *str, t_mlx mlx);
-void			free_matrix(char **matrix);
-void			destroy_image(t_mlx *mlx);
-void			clean(t_mlx *mlx);
-#endif
+void				cleanup(t_mlx *mlx);
+void				initialize_graphics(t_mlx *mlx);
+void				load_textures(t_mlx *mlx, int *i, int *j);
+void				initialize_mlx_structures(t_mlx *mlx);
+int					check_path(char *path);
+void				validate_path(t_mlx mlx);
+void				is_valid_rgb(char *str, t_mlx mlx);
+void				free_matrix(char **matrix);
+void				destroy_image(t_mlx *mlx);
+void				clean(t_mlx *mlx);
 
-// SET DIRECTIONS 
-void			set_direction_north(t_mlx *mlx);
-void			set_direction_south(t_mlx *mlx);
-void			set_direction_east(t_mlx *mlx);
-void			set_direction_west(t_mlx *mlx);
-void			handle_player_direction(t_mlx *mlx, int x, int y);
+// SET DIRECTIONS
+void				set_direction_north(t_mlx *mlx);
+void				set_direction_south(t_mlx *mlx);
+void				set_direction_east(t_mlx *mlx);
+void				set_direction_west(t_mlx *mlx);
+void				handle_player_direction(t_mlx *mlx, int x, int y);
+
+void				clean_path_no(t_mlx mlx);
+void				clean_path_so(t_mlx mlx);
+void				clean_path_we(t_mlx mlx);
+void				clean_path_ea(t_mlx mlx);
+void				clean_path(t_mlx *mlx);
+#endif

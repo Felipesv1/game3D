@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   rgb_to_hex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vboxuser <vboxuser@student.42.fr>          +#+  +:+       +#+        */
+/*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:54:30 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/24 15:09:31 by vboxuser         ###   ########.fr       */
+/*   Updated: 2025/01/28 11:11:25 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void clean_rgb(t_mlx *mlx){
+static void	clean_rgb(t_mlx *mlx)
+{
 	free(mlx->ply);
 	free(mlx->ray);
 	free(mlx->rc);
@@ -38,7 +39,6 @@ static void clean_rgb(t_mlx *mlx){
 	free(mlx->mlx_p);
 }
 
-
 static int	verify_digits(char **rgb)
 {
 	int	i;
@@ -59,6 +59,13 @@ static int	verify_digits(char **rgb)
 	return (1);
 }
 
+static void	control_error_rgb(char **rgb, t_mlx mlx)
+{
+	free_matrix(rgb);
+	printf("Error\nInvalid RGB format\n");
+	clean_rgb(&mlx);
+}
+
 void	is_valid_rgb(char *str, t_mlx mlx)
 {
 	int		r;
@@ -69,19 +76,12 @@ void	is_valid_rgb(char *str, t_mlx mlx)
 	rgb = ft_split(str, ',');
 	if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 	{
-		free_matrix(rgb);
-		printf("Error\nInvalid RGB format\n");
-		clean_rgb(&mlx);
+		control_error_rgb(rgb, mlx);
 		exit(1);
 	}
 	if (!verify_digits(rgb))
 	{
-		free(rgb[0]);
-		free(rgb[1]);
-		free(rgb[2]);
-		free(rgb);
-		printf("Error\nInvalid RGB format\n");
-		clean_rgb(&mlx);
+		control_error_rgb(rgb, mlx);
 		exit(1);
 	}
 	r = ft_atoi(rgb[0]);
@@ -89,18 +89,10 @@ void	is_valid_rgb(char *str, t_mlx mlx)
 	b = ft_atoi(rgb[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
-		free(rgb[0]);
-		free(rgb[1]);
-		free(rgb[2]);
-		free(rgb);
-		printf("Error\nInvalid RGB format\n");
-		clean_rgb(&mlx);
+		control_error_rgb(rgb, mlx);
 		exit(1);
 	}
-	free(rgb[0]);
-	free(rgb[1]);
-	free(rgb[2]);
-	free(rgb);
+	free_matrix(rgb);
 }
 
 int	rgb_to_hex(char *texture)
