@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 14:42:40 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/28 10:56:12 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:12:58 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	validate_map(char **map, t_mlx mlx)
 					- 1] == ' ' || map[i][j + 1] == ' ')
 				{
 					printf("Error: map is not closed\n");
+					free_matrix(map);
 					clean_map(&mlx);
 					exit(1);
 				}

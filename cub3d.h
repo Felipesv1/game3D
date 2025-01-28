@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 11:24:09 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 15:39:54 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ typedef struct s_data
 	char			*data;
 	int				rows;
 	int				cols;
+	int				max_row;
+	int				max;
 	char			**textu;
 	char			**c_flor;
 	t_map_texture	*map_texts;
@@ -145,10 +147,8 @@ typedef struct s_mlx
 int					ft_exit(t_mlx *mlx);
 char				**read_map(char *path);
 char				**get_map(char **path);
-int					**copy_map(char **map, t_data *dt);
 void				size_map(t_data *dt);
 void				update_map(t_mlx *mlx);
-int					**copy_char_to_int(char **map, t_data *dt);
 void				validate_map(char **map, t_mlx mlx);
 void				is_format_valid(char *av, t_mlx mlx);
 
@@ -156,11 +156,19 @@ void				is_format_valid(char *av, t_mlx mlx);
 
 void				move_player_forward(t_mlx *mlx);
 void				move_player_backward(t_mlx *mlx);
-void				rotate_player(t_mlx *mlx, int i);
 int					keypress(int keycode, t_mlx *game);
 void				game_events(int keycode, t_mlx *game);
 void				find_player(t_mlx *mlx);
 int					flood_fill(int x, int y, char **map);
+
+// MOVE PLAYER
+void				move_player_forward(t_mlx *mlx);
+void				move_player_backward(t_mlx *mlx);
+void				move_player_left(t_mlx *mlx);
+void				move_player_right(t_mlx *mlx);
+void				rotate_player_right(t_mlx *mlx);
+void				rotate_player_left(t_mlx *mlx);
+void				verify_moves(int keycode, t_mlx *game);
 
 // RAYCASTING
 
@@ -190,7 +198,6 @@ void				validate_path(t_mlx mlx);
 void				is_valid_rgb(char *str, t_mlx mlx);
 void				free_matrix(char **matrix);
 void				destroy_image(t_mlx *mlx);
-void				clean(t_mlx *mlx);
 
 // SET DIRECTIONS
 void				set_direction_north(t_mlx *mlx);

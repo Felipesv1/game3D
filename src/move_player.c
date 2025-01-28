@@ -6,31 +6,11 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:13:21 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 11:14:43 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:23:44 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-void	move_player_forward(t_mlx *mlx)
-{
-	if (mlx->dt->map2d[(int)(mlx->rc->pos_x + mlx->ray->dir_x
-			* PLAYER_SPEED)][(int)mlx->rc->pos_y] == '0')
-		mlx->ply->plyr_x += mlx->ray->dir_x * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y
-		+ mlx->ray->dir_y * PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_y += mlx->ray->dir_y * PLAYER_SPEED;
-}
-
-void	move_player_backward(t_mlx *mlx)
-{
-	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->dir_x
-			* PLAYER_SPEED)][(int)(mlx->rc->pos_y)] == '0')
-		mlx->ply->plyr_y -= mlx->ray->dir_y * PLAYER_SPEED;
-	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y
-		- mlx->ray->dir_y * PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_x -= mlx->ray->dir_x * PLAYER_SPEED;
-}
 
 void	rotate_player_right(t_mlx *mlx)
 {
@@ -66,26 +46,41 @@ void	rotate_player_left(t_mlx *mlx)
 		* cos(ROTATION_SPEED);
 }
 
-void	game_events(int keycode, t_mlx *game)
+void	verify_moves(int keycode, t_mlx *game)
 {
-	if (keycode == KEY_W || keycode == KEY_UP)
+	if (keycode == KEY_W)
 	{
 		move_player_forward(game);
 		update_map(game);
 	}
-	else if (keycode == KEY_S || keycode == KEY_DOWN)
+	else if (keycode == KEY_S)
 	{
 		move_player_backward(game);
 		update_map(game);
 	}
-	else if (keycode == KEY_D || keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT)
 	{
 		rotate_player_right(game);
 		update_map(game);
 	}
-	else if (keycode == KEY_A || keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT)
 	{
 		rotate_player_left(game);
+		update_map(game);
+	}
+}
+
+void	game_events(int keycode, t_mlx *game)
+{
+	verify_moves(keycode, game);
+	if (keycode == KEY_A)
+	{
+		move_player_left(game);
+		update_map(game);
+	}
+	else if (keycode == KEY_D)
+	{
+		move_player_right(game);
 		update_map(game);
 	}
 }

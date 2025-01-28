@@ -6,11 +6,20 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 11:23:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 11:24:23 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 12:25:08 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static int	is_valid(int x, int y, char **map)
+{
+	if (x >= 0 && map[x] && y >= 0 && map[x][y] && (map[x][y] == '0'
+			|| map[x][y] == ' ' || map[x][y] == 'N' || map[x][y] == 'S'
+			|| map[x][y] == 'W' || map[x][y] == 'E'))
+		return (1);
+	return (0);
+}
 
 int	flood_fill(int x, int y, char **map)
 {

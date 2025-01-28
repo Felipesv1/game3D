@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:56:51 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 10:29:18 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/28 13:25:15 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	verify_one_player(t_mlx *mlx)
 {
 	if (mlx->ply->n_player != 1)
 	{
-		printf("Error: player not find\n");
+		printf("Error: player \n");
 		cleanup(mlx);
 		exit(1);
 	}
