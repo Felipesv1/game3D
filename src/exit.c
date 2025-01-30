@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 11:12:21 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 11:14:18 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:46:30 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,10 @@ void	free_matrix(char **matrix)
 		i++;
 	}
 	free(matrix);
+}
+
+int	exit_wrapper(void *param)
+{
+	ft_exit((t_mlx *)param);
+	return (0);
 }

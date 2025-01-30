@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 10:51:02 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 10:56:44 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:01:36 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	clean_path_no(t_mlx mlx)
 {
-	printf("Error na imagem NO\n");
+	printf("Error\n");
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
@@ -23,7 +23,7 @@ void	clean_path_no(t_mlx mlx)
 
 void	clean_path_so(t_mlx mlx)
 {
-	printf("Error na imagem SO\n");
+	printf("Error\n");
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
@@ -32,7 +32,7 @@ void	clean_path_so(t_mlx mlx)
 
 void	clean_path_we(t_mlx mlx)
 {
-	printf("Error na imagem WE\n");
+	printf("Error\n");
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->east->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
@@ -41,7 +41,7 @@ void	clean_path_we(t_mlx mlx)
 
 void	clean_path_ea(t_mlx mlx)
 {
-	printf("Error na imagem EA\n");
+	printf("Error\n");
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->north->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->west->ptr);
 	mlx_destroy_image(mlx.mlx_p, mlx.textures->south->ptr);

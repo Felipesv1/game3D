@@ -6,18 +6,11 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 13:19:59 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 15:58:41 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:25:23 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	exit_wrapper(void *param)
-{
-	(void)param;
-	exit(0);
-	return (0);
-}
 
 void	loop_main(t_mlx mlx)
 {
@@ -26,7 +19,7 @@ void	loop_main(t_mlx mlx)
 	done = 0;
 	while (!done)
 	{
-		mlx_hook(mlx.win, 17, 0L, exit_wrapper, NULL);
+		mlx_hook(mlx.win, 17, 0L, exit_wrapper, &mlx);
 		mlx_hook(mlx.win, KeyPress, KeyPressMask, keypress, &mlx);
 		raycasting(&mlx);
 		mlx_put_image_to_window(mlx.mlx_p, mlx.win, mlx.img_ptr, 0, 0);
@@ -59,13 +52,13 @@ char static	**square_map(char **map, t_data *dt)
 	char	**new_map;
 
 	max_row = ft_strlen(map[dt->max_row]);
-	new_map = malloc(sizeof(char *) * (dt->rows + 1));
+	new_map = ft_calloc(dt->rows + 1, sizeof(char *));
 	if (!new_map)
 		exit(1);
 	i = 0;
 	while (i < dt->rows)
 	{
-		new_map[i] = malloc(sizeof(char) * (max_row + 1));
+		new_map[i] = ft_calloc(max_row + 1, sizeof(char));
 		if (!new_map[i])
 			exit(1);
 		j = 0;
@@ -88,6 +81,7 @@ int	main(int ac, char **av)
 	char	**map;
 
 	verify_ac(ac, av);
+	exist_path(av[1]);
 	initialize_mlx_structures(&mlx);
 	mlx.dt->backup = read_map(av[1]);
 	is_format_valid(av[1], mlx);

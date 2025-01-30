@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 11:40:20 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 15:39:54 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:24:50 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void				size_map(t_data *dt);
 void				update_map(t_mlx *mlx);
 void				validate_map(char **map, t_mlx mlx);
 void				is_format_valid(char *av, t_mlx mlx);
+void				exist_path(char *av);
 
 // PLAYER
 
@@ -211,4 +212,6 @@ void				clean_path_so(t_mlx mlx);
 void				clean_path_we(t_mlx mlx);
 void				clean_path_ea(t_mlx mlx);
 void				clean_path(t_mlx *mlx);
+int					exit_wrapper(void *param);
+
 #endif

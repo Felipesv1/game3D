@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/14 14:08:27 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 10:24:04 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 11:17:15 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 void	initialize_mlx_structures(t_mlx *mlx)
 {
-	mlx->ply = calloc(1, sizeof(t_player));
-	mlx->ray = calloc(1, sizeof(t_ray));
-	mlx->rc = calloc(1, sizeof(t_raycast));
-	mlx->textures = calloc(1, sizeof(t_textures));
-	mlx->textures->north = calloc(1, sizeof(t_texture));
-	mlx->textures->east = calloc(1, sizeof(t_texture));
-	mlx->textures->south = calloc(1, sizeof(t_texture));
-	mlx->textures->west = calloc(1, sizeof(t_texture));
-	mlx->dt = calloc(1, sizeof(t_data));
-	mlx->dt->map_texts = calloc(1, sizeof(t_map_texture));
+	mlx->ply = ft_calloc(1, sizeof(t_player));
+	mlx->ray = ft_calloc(1, sizeof(t_ray));
+	mlx->rc = ft_calloc(1, sizeof(t_raycast));
+	mlx->textures = ft_calloc(1, sizeof(t_textures));
+	mlx->textures->north = ft_calloc(1, sizeof(t_texture));
+	mlx->textures->east = ft_calloc(1, sizeof(t_texture));
+	mlx->textures->south = ft_calloc(1, sizeof(t_texture));
+	mlx->textures->west = ft_calloc(1, sizeof(t_texture));
+	mlx->dt = ft_calloc(1, sizeof(t_data));
+	mlx->dt->map_texts = ft_calloc(1, sizeof(t_map_texture));
 }
 
 void	initialize_graphics(t_mlx *mlx)

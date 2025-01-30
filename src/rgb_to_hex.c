@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/15 16:54:30 by vboxuser          #+#    #+#             */
-/*   Updated: 2025/01/28 11:11:25 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:02:51 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static int	verify_digits(char **rgb)
 static void	control_error_rgb(char **rgb, t_mlx mlx)
 {
 	free_matrix(rgb);
-	printf("Error\nInvalid RGB format\n");
+	printf("Error\n");
 	clean_rgb(&mlx);
 }
 

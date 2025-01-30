@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/19 13:56:51 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 13:25:15 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:02:20 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	verify_one_player(t_mlx *mlx)
 {
 	if (mlx->ply->n_player != 1)
 	{
-		printf("Error: player \n");
+		printf("Error\n");
 		cleanup(mlx);
 		exit(1);
 	}
@@ -63,7 +63,7 @@ void	is_format_valid(char *av, t_mlx mlx)
 		return ;
 	else
 	{
-		printf("Error: invalid file format\n");
+		printf("Error\n");
 		cleanup(&mlx);
 		exit(1);
 	}

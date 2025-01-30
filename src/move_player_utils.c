@@ -6,7 +6,7 @@
 /*   By: felperei <felperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/28 13:17:57 by felperei          #+#    #+#             */
-/*   Updated: 2025/01/28 13:24:10 by felperei         ###   ########.fr       */
+/*   Updated: 2025/01/30 10:45:50 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,28 +26,28 @@ void	move_player_backward(t_mlx *mlx)
 {
 	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->dir_x
 			* PLAYER_SPEED)][(int)(mlx->rc->pos_y)] == '0')
-		mlx->ply->plyr_y -= mlx->ray->dir_y * PLAYER_SPEED;
+		mlx->ply->plyr_x -= mlx->ray->dir_x * PLAYER_SPEED;
 	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y
 		- mlx->ray->dir_y * PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_x -= mlx->ray->dir_x * PLAYER_SPEED;
+		mlx->ply->plyr_y -= mlx->ray->dir_y * PLAYER_SPEED;
 }
 
 void	move_player_left(t_mlx *mlx)
 {
-	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->dir_y
+	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->plane_x
 			* PLAYER_SPEED)][(int)mlx->rc->pos_y] == '0')
-		mlx->ply->plyr_x -= mlx->ray->dir_y * PLAYER_SPEED;
+		mlx->ply->plyr_x -= mlx->ray->plane_x * PLAYER_SPEED;
 	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y
-		+ mlx->ray->dir_x * PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_y += mlx->ray->dir_x * PLAYER_SPEED;
+		- mlx->ray->plane_y * PLAYER_SPEED)] == '0')
+		mlx->ply->plyr_y -= mlx->ray->plane_y * PLAYER_SPEED;
 }
 
 void	move_player_right(t_mlx *mlx)
 {
-	if (mlx->dt->map2d[(int)(mlx->rc->pos_x - mlx->ray->dir_y
+	if (mlx->dt->map2d[(int)(mlx->rc->pos_x + mlx->ray->plane_x
 			* PLAYER_SPEED)][(int)mlx->rc->pos_y] == '0')
-		mlx->ply->plyr_x += mlx->ray->dir_y * PLAYER_SPEED;
+		mlx->ply->plyr_x += mlx->ray->plane_x * PLAYER_SPEED;
 	if (mlx->dt->map2d[(int)mlx->rc->pos_x][(int)(mlx->rc->pos_y
-		+ mlx->ray->dir_x * PLAYER_SPEED)] == '0')
-		mlx->ply->plyr_y -= mlx->ray->dir_x * PLAYER_SPEED;
+		+ mlx->ray->plane_y * PLAYER_SPEED)] == '0')
+		mlx->ply->plyr_y += mlx->ray->plane_y * PLAYER_SPEED;
 }
